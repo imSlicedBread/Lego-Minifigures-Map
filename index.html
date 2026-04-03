@@ -25,6 +25,7 @@
                     top: 0.0%;
                 }
                 .leaflet-container { font-size: 1rem; }
+                .leaflet-control-layers { display: none !important; }
             </style>
 
             <style>html, body {
@@ -56,38 +57,268 @@
 </head>
 <body>
     
-    
-<div style="position: fixed; 
-     top: 10px; left: 50px; width: 450px; height: 120px; 
-     background-color: white; border:2px solid grey; z-index:9999; 
-     font-size:16px; padding: 12px; box-shadow: 2px 2px 6px rgba(0,0,0,0.3);">
-     <h3 style="margin: 0; color: #ED1C24;">🧱 LEGO® Minifigure Factory & Build-a-Minifigure</h3>
-     <p style="margin: 5px 0; font-size: 14px;">Complete European Location Map</p>
-     <p style="margin: 5px 0; font-size: 12px;">
-     <span style="color: #ED1C24;">⭐ 16 Official Stores</span> | 
-     <span style="color: #0055BF;">🏪 58 Certified Stores</span>
-     </p>
-     <p style="margin: 5px 0; font-size: 11px; color: #666;">
-     <b>Total: 74 locations</b> across 22 countries
-     </p>
-</div>
-    
-<div style="position: fixed; 
-     bottom: 50px; left: 50px; width: 280px; 
-     background-color: white; border:2px solid grey; z-index:9999; 
-     font-size:12px; padding: 12px; box-shadow: 2px 2px 6px rgba(0,0,0,0.3);">
-     <h4 style="margin: 0 0 10px 0;">Store Types:</h4>
-     <p style="margin: 5px; padding: 5px; background: #ffe0e0; border-radius: 3px;">
-         <span style="color: #ED1C24;">⭐</span> <b>Official LEGO Store</b><br>
-         <span style="font-size: 10px;">Confirmed Minifigure Factory experience</span>
-     </p>
-     <p style="margin: 5px; padding: 5px; background: #e0f0ff; border-radius: 3px;">
-         <span style="color: #0055BF;">🏪</span> <b>LEGO Certified Store</b><br>
-         <span style="font-size: 10px;">Build-a-Minifigure stations available</span>
-     </p>
-     <p style="margin-top: 10px; font-size: 10px; color: #666; font-style: italic;">
-     Click on markers for details. Use layer control to toggle store types.
-     </p>
+
+<!-- LEGO-Themed Side Panel -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap');
+
+    .lego-panel {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        width: 270px;
+        z-index: 9999;
+        font-family: 'Nunito', 'Arial Black', sans-serif;
+    }
+
+    .lego-header {
+        background: #ED1C24;
+        color: white;
+        padding: 12px 14px 10px;
+        border-radius: 10px 10px 0 0;
+        border: 3px solid #000;
+        border-bottom: none;
+        position: relative;
+    }
+
+    .lego-header::before {
+        content: '';
+        position: absolute;
+        top: -10px; left: 12px;
+        width: 18px; height: 10px;
+        background: #ED1C24;
+        border-radius: 50% 50% 0 0;
+        border: 3px solid #000;
+        border-bottom: none;
+    }
+    .lego-header::after {
+        content: '';
+        position: absolute;
+        top: -10px; left: 42px;
+        width: 18px; height: 10px;
+        background: #ED1C24;
+        border-radius: 50% 50% 0 0;
+        border: 3px solid #000;
+        border-bottom: none;
+    }
+
+    .lego-header h2 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        line-height: 1.2;
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+    }
+
+    .lego-header p {
+        margin: 4px 0 0;
+        font-size: 11px;
+        opacity: 0.9;
+        font-weight: 700;
+    }
+
+    .lego-body {
+        background: #FFDA00;
+        border: 3px solid #000;
+        border-top: none;
+        padding: 10px 12px;
+    }
+
+    .lego-section {
+        background: white;
+        border: 2px solid #000;
+        border-radius: 6px;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+    }
+
+    .lego-section-title {
+        font-size: 11px;
+        font-weight: 900;
+        color: #000;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 0 0 6px 0;
+        border-bottom: 2px solid #ED1C24;
+        padding-bottom: 4px;
+    }
+
+    .lego-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 6px;
+        border-radius: 4px;
+        margin-bottom: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        border: 1.5px solid transparent;
+    }
+
+    .lego-legend-item.official {
+        background: #ffe0e0;
+        border-color: #ED1C24;
+    }
+    .lego-legend-item.certified-mf {
+        background: #e8f4eb;
+        border-color: #2ca02c;
+    }
+    .lego-legend-item.certified {
+        background: #e0f0ff;
+        border-color: #0055BF;
+    }
+
+    .lego-dot {
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        border: 2px solid #000;
+        flex-shrink: 0;
+    }
+    .lego-dot.red { background: #ED1C24; }
+    .lego-dot.green { background: #2ca02c; }
+    .lego-dot.blue { background: #0055BF; }
+
+    .lego-stat {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 800;
+        color: #000;
+        padding: 3px 0;
+    }
+
+    .lego-stat-value {
+        background: #ED1C24;
+        color: white;
+        padding: 1px 7px;
+        border-radius: 10px;
+        font-size: 11px;
+        border: 1.5px solid #000;
+    }
+
+    .lego-progress-bar {
+        width: 100%;
+        height: 10px;
+        background: #ddd;
+        border-radius: 5px;
+        border: 1.5px solid #000;
+        margin: 6px 0 4px;
+        overflow: hidden;
+    }
+
+    .lego-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ED1C24, #ffda00);
+        border-radius: 5px;
+        transition: width 0.4s ease;
+    }
+
+    .lego-filter-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 800;
+        color: #000;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+
+    .lego-filter-label input[type="checkbox"] {
+        accent-color: #ED1C24;
+        width: 14px;
+        height: 14px;
+        cursor: pointer;
+    }
+
+    .lego-btn {
+        width: 100%;
+        padding: 6px;
+        border: 2px solid #000;
+        border-radius: 5px;
+        font-family: 'Nunito', 'Arial Black', sans-serif;
+        font-weight: 900;
+        font-size: 11px;
+        cursor: pointer;
+        margin-top: 4px;
+        transition: transform 0.1s, box-shadow 0.1s;
+        box-shadow: 2px 2px 0 #000;
+    }
+
+    .lego-btn:active {
+        transform: translate(2px, 2px);
+        box-shadow: none;
+    }
+
+    .lego-btn-danger {
+        background: #ED1C24;
+        color: white;
+    }
+
+    .lego-footer {
+        background: #000;
+        color: #FFDA00;
+        font-size: 10px;
+        font-weight: 700;
+        text-align: center;
+        padding: 5px;
+        border-radius: 0 0 8px 8px;
+        border: 3px solid #000;
+        border-top: none;
+    }
+</style>
+
+<div class="lego-panel" id="lego-main-panel">
+    <div class="lego-header">
+        <h2>🧱 LEGO® Minifigure Factory</h2>
+        <p>Europe &amp; UK Location Map</p>
+    </div>
+
+    <div class="lego-body">
+
+        <!-- PROGRESS -->
+        <div class="lego-section" id="lego-summary-panel">
+            <p class="lego-section-title">Your Progress</p>
+            <div class="lego-stat">
+                <span>Visited</span>
+                <span class="lego-stat-value" id="stat-visited">0 / 0</span>
+            </div>
+            <div class="lego-progress-bar">
+                <div class="lego-progress-fill" id="stat-bar" style="width:0%"></div>
+            </div>
+            <div class="lego-stat">
+                <span>Complete</span>
+                <span class="lego-stat-value" id="stat-pct">0%</span>
+            </div>
+            <div class="lego-stat">
+                <span>Countries</span>
+                <span class="lego-stat-value" id="stat-countries">0</span>
+            </div>
+            <button class="lego-btn lego-btn-danger" onclick="clearAllVisitedWithConfirm()" style="margin-top:8px;">
+                🗑 Clear All Visited
+            </button>
+        </div>
+
+        <!-- FILTERS -->
+        <div class="lego-section">
+            <p class="lego-section-title">Filters</p>
+            <label class="lego-filter-label">
+                <input type="checkbox" id="mf-only-filter" checked onchange="toggleMFOnlyFilter(this)">
+                🏭 Minifigure Factory Only
+            </label>
+            <label class="lego-filter-label">
+                <input type="checkbox" id="unvisited-filter" onchange="toggleUnvisitedFilter(this)">
+                👁 Show Unvisited Only
+            </label>
+        </div>
+
+
+    </div>
+    <div class="lego-footer">
+        Click a marker · Use layer control (top right) to toggle store types
+    </div>
 </div>
     
             <div class="folium-map" id="map_5dc165a63f01f128c58e883046fe30a7" ></div>
@@ -911,7 +1142,33 @@
             marker_cluster_4fca783c6f975db92c2d7ac91f46a560.addTo(map_5dc165a63f01f128c58e883046fe30a7);
         
     
+            
+            // LEGO Store Hamburg
+            var marker_hamburg = L.marker([53.5511, 10.0028], {}).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+            var icon_hamburg = L.AwesomeMarkers.icon({"markerColor": "red", "iconColor": "white", "icon": "star", "prefix": "fa", "extraClasses": "fa-rotate-0"});
+            var popup_hamburg = L.popup({"maxWidth": 300});
+            var html_hamburg = $(`<div style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; width: 280px;"><h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Hamburg</h4><p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p><p style="margin: 3px 0;"><b>City:</b> Hamburg</p><p style="margin: 3px 0;"><b>Country:</b> Germany</p><p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;"><b>✓ Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!</p></div></div>`)[0];
+            popup_hamburg.setContent(html_hamburg);
+            marker_hamburg.bindPopup(popup_hamburg);
+            marker_hamburg.bindTooltip(`<div>LEGO Store Hamburg</div>`, {"sticky": true});
+            marker_hamburg.setIcon(icon_hamburg);
+
+            // LEGOLAND Billund
+            var marker_billund_park = L.marker([55.7352, 9.1235], {}).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+            var icon_billund_park = L.AwesomeMarkers.icon({"markerColor": "red", "iconColor": "white", "icon": "star", "prefix": "fa", "extraClasses": "fa-rotate-0"});
+            var popup_billund_park = L.popup({"maxWidth": 300});
+            var html_billund_park = $(`<div style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; width: 280px;"><h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGOLAND Billund</h4><p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p><p style="margin: 3px 0;"><b>City:</b> Billund</p><p style="margin: 3px 0;"><b>Country:</b> Denmark</p><p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;"><b>✓ Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!</p></div></div>`)[0];
+            popup_billund_park.setContent(html_billund_park);
+            marker_billund_park.bindPopup(popup_billund_park);
+            marker_billund_park.bindTooltip(`<div>LEGOLAND Billund</div>`, {"sticky": true});
+            marker_billund_park.setIcon(icon_billund_park);
+
             var marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a = L.markerClusterGroup(
+                {
+}
+            );
+
+            var marker_cluster_certified_mf = L.markerClusterGroup(
                 {
 }
             );
@@ -921,7 +1178,7 @@
                 [45.4654, 9.1978],
                 {
 }
-            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+            ).addTo(marker_cluster_certified_mf);
         
     
             var icon_270eb2a2b90c137aba8e53bee231ef97 = L.AwesomeMarkers.icon(
@@ -941,7 +1198,7 @@
 
         
             
-                var html_d26af4fe85bbe48e631da03281d50ef7 = $(`<div id="html_d26af4fe85bbe48e631da03281d50ef7" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store San Babila</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Milan</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Minifigure Factory<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                var html_d26af4fe85bbe48e631da03281d50ef7 = $(`<div id="html_d26af4fe85bbe48e631da03281d50ef7" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store San Babila</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Milan</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure, Minifigure Factory<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
                 popup_9853b1a327938f869e19901283974cdc.setContent(html_d26af4fe85bbe48e631da03281d50ef7);
             
         
@@ -1209,7 +1466,7 @@
                 [40.8518, 14.2681],
                 {
 }
-            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+            ).addTo(marker_cluster_certified_mf);
         
     
             var icon_0953cb70aa01c7fb6cd0dd3a0f9be308 = L.AwesomeMarkers.icon(
@@ -1229,7 +1486,7 @@
 
         
             
-                var html_b50c1763bbb0ce3bcffbc7d724a69db8 = $(`<div id="html_b50c1763bbb0ce3bcffbc7d724a69db8" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Naples</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Naples</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                var html_b50c1763bbb0ce3bcffbc7d724a69db8 = $(`<div id="html_b50c1763bbb0ce3bcffbc7d724a69db8" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Naples</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Naples</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure, Minifigure Factory<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
                 popup_69ada4e27be6c3e36dfc8fb73dd82659.setContent(html_b50c1763bbb0ce3bcffbc7d724a69db8);
             
         
@@ -1593,7 +1850,7 @@
                 [38.7639, -9.1698],
                 {
 }
-            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+            ).addTo(marker_cluster_certified_mf);
         
     
             var icon_8a1b742a231a0653cd4d4d4638ed23d1 = L.AwesomeMarkers.icon(
@@ -1613,7 +1870,7 @@
 
         
             
-                var html_9f7195d5d215c4a90d5b5cc3118d2eb3 = $(`<div id="html_9f7195d5d215c4a90d5b5cc3118d2eb3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Lisbon</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Lisbon</p>         <p style="margin: 3px 0;"><b>Country:</b> Portugal</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Minifigure Factory<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                var html_9f7195d5d215c4a90d5b5cc3118d2eb3 = $(`<div id="html_9f7195d5d215c4a90d5b5cc3118d2eb3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Lisbon</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Lisbon</p>         <p style="margin: 3px 0;"><b>Country:</b> Portugal</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure, Minifigure Factory<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
                 popup_bdd5084c28330f2192f1473046308341.setContent(html_9f7195d5d215c4a90d5b5cc3118d2eb3);
             
         
@@ -3225,7 +3482,7 @@
                 [45.815, 15.9819],
                 {
 }
-            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+            ).addTo(marker_cluster_certified_mf);
         
     
             var icon_6f9a6dba014b50782b9370b4784718af = L.AwesomeMarkers.icon(
@@ -3245,7 +3502,7 @@
 
         
             
-                var html_fc8acaf87d8ddac4b96d019512b6e84d = $(`<div id="html_fc8acaf87d8ddac4b96d019512b6e84d" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Zagreb</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Zagreb</p>         <p style="margin: 3px 0;"><b>Country:</b> Croatia</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                var html_fc8acaf87d8ddac4b96d019512b6e84d = $(`<div id="html_fc8acaf87d8ddac4b96d019512b6e84d" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Zagreb</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Zagreb</p>         <p style="margin: 3px 0;"><b>Country:</b> Croatia</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure, Pick &amp; Build Wall, Minifigure Factory, Demonstration Table<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
                 popup_653554bcc5e766e3b032b09fae1816bd.setContent(html_fc8acaf87d8ddac4b96d019512b6e84d);
             
         
@@ -3609,7 +3866,7 @@
                 [47.4979, 19.0402],
                 {
 }
-            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+            ).addTo(marker_cluster_certified_mf);
         
     
             var icon_de4c61645ea76a14d9a1edc20e2893d6 = L.AwesomeMarkers.icon(
@@ -3629,7 +3886,7 @@
 
         
             
-                var html_66f73103f68acb7bdf53dc74e9791d56 = $(`<div id="html_66f73103f68acb7bdf53dc74e9791d56" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Budapest</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Budapest</p>         <p style="margin: 3px 0;"><b>Country:</b> Hungary</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                var html_66f73103f68acb7bdf53dc74e9791d56 = $(`<div id="html_66f73103f68acb7bdf53dc74e9791d56" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Budapest</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Budapest</p>         <p style="margin: 3px 0;"><b>Country:</b> Hungary</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure, Minifigure Factory<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
                 popup_7669900347afcc4197ed078dc8e5b976.setContent(html_66f73103f68acb7bdf53dc74e9791d56);
             
         
@@ -3699,9 +3956,576 @@
         
     
                 marker_52b8c80c48b82358496ae098d8ec25f1.setIcon(icon_59a8008d803797409f21316d25316688);
-            
-    
+
+
+            var marker_uk_00 = L.marker(
+                [54.5973, -5.9301],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_00 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_00 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_00 = $(`<div id="html_uk_00" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Belfast</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Belfast</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure, Pick & Build Wall         </p>     </div>     </div>`)[0];
+                popup_uk_00.setContent(html_uk_00);
+
+        marker_uk_00.bindPopup(popup_uk_00);
+        marker_uk_00.bindTooltip(`<div>LEGO Store Belfast</div>`, {"sticky": true});
+        marker_uk_00.setIcon(icon_uk_00);
+
+
+            var marker_uk_01 = L.marker(
+                [52.5095, -1.8736],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_01 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_01 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_01 = $(`<div id="html_uk_01" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Birmingham - Utilita Arena</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Birmingham</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure, Pick & Build Wall         </p>     </div>     </div>`)[0];
+                popup_uk_01.setContent(html_uk_01);
+
+        marker_uk_01.bindPopup(popup_uk_01);
+        marker_uk_01.bindTooltip(`<div>LEGO Store Birmingham - Utilita Arena</div>`, {"sticky": true});
+        marker_uk_01.setIcon(icon_uk_01);
+
+
+            var marker_uk_02 = L.marker(
+                [51.4474, 0.2799],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_02 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_02 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_02 = $(`<div id="html_uk_02" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Bluewater</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Kent</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_02.setContent(html_uk_02);
+
+        marker_uk_02.bindPopup(popup_uk_02);
+        marker_uk_02.bindTooltip(`<div>LEGO Store Bluewater</div>`, {"sticky": true});
+        marker_uk_02.setIcon(icon_uk_02);
+
+
+            var marker_uk_03 = L.marker(
+                [50.8429, -0.0839],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_03 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_03 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_03 = $(`<div id="html_uk_03" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Brighton</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Brighton</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_03.setContent(html_uk_03);
+
+        marker_uk_03.bindPopup(popup_uk_03);
+        marker_uk_03.bindTooltip(`<div>LEGO Store Brighton</div>`, {"sticky": true});
+        marker_uk_03.setIcon(icon_uk_03);
+
+
+            var marker_uk_04 = L.marker(
+                [51.4545, -2.5891],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_04 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_04 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_04 = $(`<div id="html_uk_04" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Bristol</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Bristol</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_04.setContent(html_uk_04);
+
+        marker_uk_04.bindPopup(popup_uk_04);
+        marker_uk_04.bindTooltip(`<div>LEGO Store Bristol</div>`, {"sticky": true});
+        marker_uk_04.setIcon(icon_uk_04);
+
+
+            var marker_uk_05 = L.marker(
+                [51.4816, -3.1791],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_05 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_05 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_05 = $(`<div id="html_uk_05" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Cardiff</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Cardiff</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_05.setContent(html_uk_05);
+
+        marker_uk_05.bindPopup(popup_uk_05);
+        marker_uk_05.bindTooltip(`<div>LEGO Store Cardiff</div>`, {"sticky": true});
+        marker_uk_05.setIcon(icon_uk_05);
+
+
+            var marker_uk_06 = L.marker(
+                [51.5244, -2.6189],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_06 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_06 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_06 = $(`<div id="html_uk_06" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Cribbs - Bristol</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Bristol</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure, Pick & Build Wall         </p>     </div>     </div>`)[0];
+                popup_uk_06.setContent(html_uk_06);
+
+        marker_uk_06.bindPopup(popup_uk_06);
+        marker_uk_06.bindTooltip(`<div>LEGO Store Cribbs - Bristol</div>`, {"sticky": true});
+        marker_uk_06.setIcon(icon_uk_06);
+
+
+            var marker_uk_07 = L.marker(
+                [55.9533, -3.1883],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_07 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_07 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_07 = $(`<div id="html_uk_07" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Edinburgh</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Edinburgh</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_07.setContent(html_uk_07);
+
+        marker_uk_07.bindPopup(popup_uk_07);
+        marker_uk_07.bindTooltip(`<div>LEGO Store Edinburgh</div>`, {"sticky": true});
+        marker_uk_07.setIcon(icon_uk_07);
+
+
+            var marker_uk_08 = L.marker(
+                [55.8642, -4.2518],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_08 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_08 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_08 = $(`<div id="html_uk_08" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Glasgow</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Glasgow</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_08.setContent(html_uk_08);
+
+        marker_uk_08.bindPopup(popup_uk_08);
+        marker_uk_08.bindTooltip(`<div>LEGO Store Glasgow</div>`, {"sticky": true});
+        marker_uk_08.setIcon(icon_uk_08);
+
+
+            var marker_uk_09 = L.marker(
+                [53.8008, -1.5491],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_09 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_09 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_09 = $(`<div id="html_uk_09" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Leeds</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Leeds</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_09.setContent(html_uk_09);
+
+        marker_uk_09.bindPopup(popup_uk_09);
+        marker_uk_09.bindTooltip(`<div>LEGO Store Leeds</div>`, {"sticky": true});
+        marker_uk_09.setIcon(icon_uk_09);
+
+
+            var marker_uk_10 = L.marker(
+                [51.4829, -0.1588],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_10 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_10 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_10 = $(`<div id="html_uk_10" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store London - Battersea</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> London</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure, Pick & Build Wall         </p>     </div>     </div>`)[0];
+                popup_uk_10.setContent(html_uk_10);
+
+        marker_uk_10.bindPopup(popup_uk_10);
+        marker_uk_10.bindTooltip(`<div>LEGO Store London - Battersea</div>`, {"sticky": true});
+        marker_uk_10.setIcon(icon_uk_10);
+
+
+            var marker_uk_11 = L.marker(
+                [51.5387, 0.0131],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_11 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_11 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_11 = $(`<div id="html_uk_11" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store London - Stratford</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> London</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_11.setContent(html_uk_11);
+
+        marker_uk_11.bindPopup(popup_uk_11);
+        marker_uk_11.bindTooltip(`<div>LEGO Store London - Stratford</div>`, {"sticky": true});
+        marker_uk_11.setIcon(icon_uk_11);
+
+
+            var marker_uk_12 = L.marker(
+                [51.5069, -0.2231],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_12 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_12 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_12 = $(`<div id="html_uk_12" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store London - Westfield</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> London</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_12.setContent(html_uk_12);
+
+        marker_uk_12.bindPopup(popup_uk_12);
+        marker_uk_12.bindTooltip(`<div>LEGO Store London - Westfield</div>`, {"sticky": true});
+        marker_uk_12.setIcon(icon_uk_12);
+
+
+            var marker_uk_13 = L.marker(
+                [53.4830, -2.2381],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_13 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_13 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_13 = $(`<div id="html_uk_13" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Manchester - Arndale</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Manchester</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_13.setContent(html_uk_13);
+
+        marker_uk_13.bindPopup(popup_uk_13);
+        marker_uk_13.bindTooltip(`<div>LEGO Store Manchester - Arndale</div>`, {"sticky": true});
+        marker_uk_13.setIcon(icon_uk_13);
+
+
+            var marker_uk_14 = L.marker(
+                [53.4618, -2.3313],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_14 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_14 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_14 = $(`<div id="html_uk_14" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Manchester - Trafford Centre</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Manchester</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_14.setContent(html_uk_14);
+
+        marker_uk_14.bindPopup(popup_uk_14);
+        marker_uk_14.bindTooltip(`<div>LEGO Store Manchester - Trafford Centre</div>`, {"sticky": true});
+        marker_uk_14.setIcon(icon_uk_14);
+
+
+            var marker_uk_15 = L.marker(
+                [53.4574, -2.3333],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_15 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_15 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_15 = $(`<div id="html_uk_15" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Manchester - Trafford Palazzo</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Manchester</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure, Pick & Build Wall         </p>     </div>     </div>`)[0];
+                popup_uk_15.setContent(html_uk_15);
+
+        marker_uk_15.bindPopup(popup_uk_15);
+        marker_uk_15.bindTooltip(`<div>LEGO Store Manchester - Trafford Palazzo</div>`, {"sticky": true});
+        marker_uk_15.setIcon(icon_uk_15);
+
+
+            var marker_uk_16 = L.marker(
+                [52.0406, -0.7594],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_16 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_16 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_16 = $(`<div id="html_uk_16" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Milton Keynes</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Milton Keynes</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_16.setContent(html_uk_16);
+
+        marker_uk_16.bindPopup(popup_uk_16);
+        marker_uk_16.bindTooltip(`<div>LEGO Store Milton Keynes</div>`, {"sticky": true});
+        marker_uk_16.setIcon(icon_uk_16);
+
+
+            var marker_uk_17 = L.marker(
+                [54.9783, -1.6178],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_17 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_17 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_17 = $(`<div id="html_uk_17" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Newcastle</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Newcastle</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_17.setContent(html_uk_17);
+
+        marker_uk_17.bindPopup(popup_uk_17);
+        marker_uk_17.bindTooltip(`<div>LEGO Store Newcastle</div>`, {"sticky": true});
+        marker_uk_17.setIcon(icon_uk_17);
+
+
+            var marker_uk_18 = L.marker(
+                [51.7520, -1.2578],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_18 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_18 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_18 = $(`<div id="html_uk_18" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Oxford</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Oxford</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_18.setContent(html_uk_18);
+
+        marker_uk_18.bindPopup(popup_uk_18);
+        marker_uk_18.bindTooltip(`<div>LEGO Store Oxford</div>`, {"sticky": true});
+        marker_uk_18.setIcon(icon_uk_18);
+
+
+            var marker_uk_19 = L.marker(
+                [53.3808, -1.4701],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_19 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_19 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_19 = $(`<div id="html_uk_19" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Sheffield</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Sheffield</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_19.setContent(html_uk_19);
+
+        marker_uk_19.bindPopup(popup_uk_19);
+        marker_uk_19.bindTooltip(`<div>LEGO Store Sheffield</div>`, {"sticky": true});
+        marker_uk_19.setIcon(icon_uk_19);
+
+
+            var marker_uk_20 = L.marker(
+                [50.9097, -1.4044],
+                {}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+
+            var icon_uk_20 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+
+        var popup_uk_20 = L.popup({
+  "maxWidth": 300,
+});
+
+            var html_uk_20 = $(`<div id="html_uk_20" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">LEGO Store Southampton</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Southampton</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Minifigure Factory Confirmed</b><br>Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_uk_20.setContent(html_uk_20);
+
+        marker_uk_20.bindPopup(popup_uk_20);
+        marker_uk_20.bindTooltip(`<div>LEGO Store Southampton</div>`, {"sticky": true});
+        marker_uk_20.setIcon(icon_uk_20);
+
             marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a.addTo(map_5dc165a63f01f128c58e883046fe30a7);
+            marker_cluster_certified_mf.addTo(map_5dc165a63f01f128c58e883046fe30a7);
         
     
             var layer_control_c6cd9f4e359707e9e8179e1ff334e2f3_layers = {
@@ -3710,6 +4534,7 @@
                 },
                 overlays :  {
                     "Official LEGO Stores (Confirmed Minifigure Factory)" : marker_cluster_4fca783c6f975db92c2d7ac91f46a560,
+                    "LEGO Certified Stores (Minifigure Factory)" : marker_cluster_certified_mf,
                     "LEGO Certified Stores (Build a Minifigure)" : marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a,
                 },
             };
@@ -3723,6 +4548,528 @@
 }
             ).addTo(map_5dc165a63f01f128c58e883046fe30a7);
 
-        
-</script>
+
+        // ============================================================================
+        // MARKER ENHANCEMENT - Attach UI features to all markers after page load
+        // ============================================================================
+        function enhanceAllMarkers() {
+            // Get all marker cluster groups from the map
+            const clusters = [
+                window.marker_cluster_4fca783c6f975db92c2d7ac91f46a560,  // Official stores
+                window.marker_cluster_certified_mf,                      // Certified MF stores
+                window.marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a   // Other certified stores
+            ].filter(c => c !== undefined);
+
+            let markerCount = 0;
+
+            clusters.forEach(cluster => {
+                // Access cluster's internal markers array
+                cluster.eachLayer(function(layer) {
+                    if (layer instanceof L.Marker) {
+                        markerCount++;
+                        const marker = layer;
+
+                        // Determine store type
+                        const storeType = cluster === window.marker_cluster_4fca783c6f975db92c2d7ac91f46a560 ? 'official' : 'certified';
+
+                        // Extract store data from popup
+                        const popup = marker.getPopup();
+                        if (popup) {
+                            const popupContent = popup.getContent();
+                            let htmlText = '';
+
+                            if (typeof popupContent === 'string') {
+                                htmlText = popupContent;
+                            } else if (popupContent instanceof HTMLElement) {
+                                htmlText = popupContent.outerHTML;
+                            }
+
+                            // Extract store info
+                            const nameMatch = htmlText.match(/<h4[^>]*>(.*?)<\/h4>/);
+                            const cityMatch = htmlText.match(/<b>City:<\/b>\s*([^<]+)</);
+                            const countryMatch = htmlText.match(/<b>Country:<\/b>\s*([^<]+)</);
+
+                            if (nameMatch && cityMatch && countryMatch) {
+                                let storeName = nameMatch[1].replace(/<[^>]*>/g, '').trim();
+                                const cityText = cityMatch[1].trim();
+                                const countryText = countryMatch[1].trim();
+
+                                // Clean up store name (remove emoji)
+                                storeName = storeName.replace(/[^\w\s-]/g, '').trim();
+                                if (!storeName) storeName = 'Unknown Store';
+
+                                // Create store ID
+                                const storeId = `store_${markerCount}_${cityText.toLowerCase().replace(/\s+/g, '_')}`;
+
+                                // Check if store has Minifigure Factory
+                                const hasMF = htmlText.includes('Minifigure Factory') ||
+                                             htmlText.includes('Minifigure factory') ||
+                                             (storeType === 'official' && htmlText.includes('Confirmed'));
+                                marker._hasMF = hasMF;
+
+                                // Register marker in global registry
+                                window.storeRegistry[storeId] = {
+                                    marker: marker,
+                                    storeId: storeId,
+                                    storeName: storeName,
+                                    city: cityText,
+                                    country: countryText,
+                                    storeType: storeType,
+                                    hasMF: hasMF,
+                                    cluster: cluster
+                                };
+
+                                // Hook into popup open event to inject button
+                                marker.on('popupopen', function() {
+                                    setTimeout(() => {
+                                        const popup = this.getPopup();
+                                        if (popup) {
+                                            enhancePopupWithButton(popup, storeId, storeName, cityText, countryText);
+                                        }
+                                    }, 50);
+                                });
+
+                                // Apply correct icon based on visited state
+                                const isVisited = VisitedStoresManager.isVisited(storeId);
+                                const correctIcon = IconManager.getIcon(storeType, isVisited);
+                                marker.setIcon(correctIcon);
+
+                                // Enhance tooltip
+                                const tooltipText = isVisited ? `${storeName} (✓ Visited)` : storeName;
+                                marker.bindTooltip(tooltipText, { sticky: true });
+                            }
+                        }
+                    }
+                });
+            });
+
+            console.log(`✓ Enhanced ${markerCount} LEGO store markers with visited tracking`);
+        }
+
+        function generateStoreSlug(storeName) {
+            return storeName
+                .replace(/^[^\w\s®]+\s*/u, '')                              // Remove leading emoji/symbols
+                .replace(/^LEGO[®\xae]?\s+(?:Certified\s+)?Store\s+/i, '') // Remove "LEGO Store " or "LEGO Certified Store " prefix
+                .toLowerCase()
+                .replace(/\s*[–—-]+\s*/g, '-')                              // Normalize dashes
+                .replace(/\s+/g, '-')
+                .replace(/[^a-z0-9-]/g, '')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+        }
+
+        function enhancePopupWithButton(popup, storeId, storeName, city, country) {
+            const content = popup.getContent();
+            let htmlText = '';
+
+            if (typeof content === 'string') {
+                htmlText = content;
+            } else if (content instanceof HTMLElement) {
+                htmlText = content.outerHTML;
+            }
+
+            // Don't add button if already present
+            if (htmlText.includes('visit-btn')) return;
+
+            // Generate LEGO website URL and inject clickable link into h4 store name
+            const slug = generateStoreSlug(storeName);
+            const storeUrl = `https://www.lego.com/en-gb/stores/store/${slug}`;
+            if (!htmlText.includes('lego.com/stores/store/')) {
+                htmlText = htmlText.replace(
+                    /(<h4[^>]*>)([\s\S]*?)(<\/h4>)/,
+                    `$1<a href="${storeUrl}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;" title="Open on LEGO website ↗">$2</a>$3`
+                );
+            }
+
+            const isVisited = VisitedStoresManager.isVisited(storeId);
+            const buttonText = isVisited ? '⊘ Mark as Unvisited' : '✓ Mark as Visited';
+            const buttonColor = isVisited ? '#dc3545' : '#0055BF';
+
+            const visitButton = `
+                <button id="visit-btn-${storeId}"
+                        onclick="toggleStoreVisited('${storeId}', '${storeName.replace(/'/g, "\\'")}', '${city.replace(/'/g, "\\'")}', '${country.replace(/'/g, "\\'")}')"
+                        style="
+                            margin-top: 8px;
+                            padding: 8px 12px;
+                            background-color: ${buttonColor};
+                            color: white;
+                            border: none;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            font-size: 12px;
+                            width: 100%;
+                            font-weight: bold;
+                            transition: background-color 0.2s;
+                        "
+                        onmouseover="this.style.opacity='0.85'"
+                        onmouseout="this.style.opacity='1'">
+                    ${buttonText}
+                </button>
+            `;
+
+            const enhancedContent = htmlText + visitButton;
+
+            // Update popup content
+            if (content instanceof HTMLElement) {
+                content.innerHTML = enhancedContent;
+            } else {
+                popup.setContent(enhancedContent);
+            }
+        }
+
+        // Initialize enhancements after markers are created
+        setTimeout(() => {
+            enhanceAllMarkers();
+            // Apply MF-only filter on load (checkbox is checked by default)
+            const mfCheckbox = document.getElementById('mf-only-filter');
+            if (mfCheckbox) toggleMFOnlyFilter(mfCheckbox);
+        }, 500);
+        // ============================================================================
+        // VISITED STORES MANAGER - Handle localStorage persistence
+        // ============================================================================
+        const VisitedStoresManager = {
+            storageKey: 'lego_visited_stores',
+
+            load() {
+                const stored = localStorage.getItem(this.storageKey);
+                return stored ? JSON.parse(stored) : {};
+            },
+
+            save(visited) {
+                localStorage.setItem(this.storageKey, JSON.stringify(visited));
+            },
+
+            mark(storeId, storeData) {
+                const visited = this.load();
+                visited[storeId] = {
+                    name: storeData.name,
+                    city: storeData.city,
+                    country: storeData.country,
+                    visitedAt: new Date().toISOString()
+                };
+                this.save(visited);
+                return visited[storeId];
+            },
+
+            unmark(storeId) {
+                const visited = this.load();
+                delete visited[storeId];
+                this.save(visited);
+            },
+
+            isVisited(storeId) {
+                return this.load().hasOwnProperty(storeId);
+            },
+
+            getAll() {
+                return this.load();
+            },
+
+            clear() {
+                localStorage.removeItem(this.storageKey);
+            }
+        };
+
+        // Initialize on page load
+        window.visitedStores = VisitedStoresManager.load();
+        window.storeRegistry = {}; // Maps storeId to marker object
+
+        // ============================================================================
+        // ICON MANAGER - Handle different icon styles for visited/unvisited
+        // ============================================================================
+        const IconManager = {
+            icons: {},
+
+            init() {
+                this.icons.official_unvisited = L.AwesomeMarkers.icon({
+                    markerColor: 'red',
+                    iconColor: 'white',
+                    icon: 'star',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                });
+
+                this.icons.official_visited = L.AwesomeMarkers.icon({
+                    markerColor: 'darkred',
+                    iconColor: '#ffeb99',
+                    icon: 'check',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                });
+
+                this.icons.certified_unvisited = L.AwesomeMarkers.icon({
+                    markerColor: 'blue',
+                    iconColor: 'white',
+                    icon: 'home',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                });
+
+                this.icons.certified_visited = L.AwesomeMarkers.icon({
+                    markerColor: 'darkblue',
+                    iconColor: '#ffeb99',
+                    icon: 'check',
+                    prefix: 'fa',
+                    extraClasses: 'fa-rotate-0'
+                });
+            },
+
+            getIcon(storeType, isVisited) {
+                const key = `${storeType}_${isVisited ? 'visited' : 'unvisited'}`;
+                return this.icons[key];
+            }
+        };
+
+        IconManager.init();
+
+        // ============================================================================
+        // UTILITY FUNCTIONS
+        // ============================================================================
+
+        function generateStoreId(storeName, city, country) {
+            return `store_${city.toLowerCase().replace(/\s+/g, '_')}_${country.toLowerCase().replace(/\s+/g, '_')}_${Math.random().toString(36).substr(2, 9)}`;
+        }
+
+        function showToastNotification(message) {
+            const toastHtml = `
+                <div class="toast" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 10000;">
+                    <div class="toast-body" style="background-color: #28a745; color: white; border-radius: 4px; padding: 12px 16px; font-size: 14px;">
+                        ${message}
+                    </div>
+                </div>
+            `;
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = toastHtml;
+            const toastElement = tempDiv.firstChild;
+            document.body.appendChild(toastElement);
+
+            setTimeout(() => {
+                toastElement.style.opacity = '0';
+                toastElement.style.transition = 'opacity 0.3s ease-out';
+                setTimeout(() => toastElement.remove(), 300);
+            }, 2500);
+        }
+
+        function updateMarkerAppearance(storeId) {
+            const marker = window.storeRegistry[storeId];
+            if (!marker) return;
+
+            const isVisited = VisitedStoresManager.isVisited(storeId);
+            const storeType = marker.storeType || 'certified';
+            const newIcon = IconManager.getIcon(storeType, isVisited);
+            marker.setIcon(newIcon);
+        }
+
+        function calculateStatistics(mfOnly = false) {
+            const visited = VisitedStoresManager.getAll();
+            const registry = window.storeRegistry;
+
+            // Count total and visited stores
+            let totalStores = 0;
+            let visitedCount = 0;
+            const countriesSet = new Set();
+
+            Object.entries(registry).forEach(([storeId, entry]) => {
+                const isMFStore = entry.storeType === 'official' || (entry.marker && entry.marker._hasMF);
+
+                if (mfOnly && !isMFStore) return; // Skip non-MF stores if mfOnly filter
+
+                totalStores++;
+                if (visited[storeId]) {
+                    visitedCount++;
+                    if (entry.country) countriesSet.add(entry.country);
+                }
+            });
+
+            const percentVisited = totalStores > 0 ? Math.round((visitedCount / totalStores) * 100) : 0;
+            const countriesCount = countriesSet.size;
+
+            return {
+                visitedCount,
+                totalStores,
+                percentVisited,
+                countriesCount,
+                isMFOnly: mfOnly
+            };
+        }
+
+        function updateSummaryPanel() {
+            const isMFOnly = document.getElementById('mf-only-filter') ? document.getElementById('mf-only-filter').checked : false;
+            const stats = calculateStatistics(isMFOnly);
+
+            const elVisited = document.getElementById('stat-visited');
+            const elBar = document.getElementById('stat-bar');
+            const elPct = document.getElementById('stat-pct');
+            const elCountries = document.getElementById('stat-countries');
+            const elTitle = document.querySelector('#lego-summary-panel .lego-section-title');
+
+            if (elVisited) elVisited.textContent = `${stats.visitedCount} / ${stats.totalStores}`;
+            if (elBar) elBar.style.width = `${stats.percentVisited}%`;
+            if (elPct) elPct.textContent = `${stats.percentVisited}%`;
+            if (elCountries) elCountries.textContent = stats.countriesCount;
+            if (elTitle) elTitle.textContent = isMFOnly ? '🏭 MF Progress' : 'Your Progress';
+        }
+
+        function clearAllVisitedWithConfirm() {
+            if (confirm('Are you sure you want to clear all visited stores? This action cannot be undone.')) {
+                VisitedStoresManager.clear();
+                window.visitedStores = {};
+
+                Object.keys(window.storeRegistry).forEach(storeId => {
+                    updateMarkerAppearance(storeId);
+                });
+
+                updateSummaryPanel();
+                showToastNotification('✓ Cleared all visited stores');
+            }
+        }
+
+        function toggleUnvisitedFilter(checkbox) {
+            const isChecked = checkbox.checked;
+            Object.keys(window.storeRegistry).forEach(storeId => {
+                const entry = window.storeRegistry[storeId];
+                const marker = entry.marker ? entry.marker : entry;
+                if (!marker) return;
+
+                const isVisited = VisitedStoresManager.isVisited(storeId);
+                marker.setOpacity(isChecked && isVisited ? 0.3 : 1);
+            });
+        }
+
+        function toggleMFOnlyFilter(checkbox) {
+            const isChecked = checkbox.checked;
+            const map = window.map_5dc165a63f01f128c58e883046fe30a7;
+            const nonMFCluster = window.marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a;
+
+            if (isChecked) {
+                // Remove the non-MF cluster from the map entirely
+                if (map.hasLayer(nonMFCluster)) {
+                    map.removeLayer(nonMFCluster);
+                }
+                showToastNotification('🏭 Showing Minifigure Factory stores only');
+            } else {
+                // Add the non-MF cluster back
+                if (!map.hasLayer(nonMFCluster)) {
+                    nonMFCluster.addTo(map);
+                }
+                showToastNotification('📍 Showing all stores');
+            }
+
+            updateSummaryPanel();
+        }
+
+        // Summary panel is now static HTML in the LEGO side panel
+        // updateSummaryPanel() updates the individual stat elements by ID
+
+        // ============================================================================
+        // ADD FILTER CHECKBOX TO LAYER CONTROL
+        // ============================================================================
+        function addUnvisitedFilterCheckbox() {
+            // Filters are in the LEGO side panel — nothing to inject into layer control
+        }
+
+        // ============================================================================
+        // ENHANCE POPUPS WITH VISIT BUTTON - Intercept popup creation
+        // ============================================================================
+        function injectVisitButton(marker, storeId, storeName, city, country) {
+            const originalPopup = marker.getPopup();
+            if (!originalPopup) return;
+
+            const originalContent = originalPopup.getContent();
+            let htmlContent = originalContent;
+
+            if (typeof originalContent === 'string') {
+                htmlContent = originalContent;
+            } else if (originalContent instanceof HTMLElement) {
+                htmlContent = originalContent.outerHTML;
+            }
+
+            const isVisited = VisitedStoresManager.isVisited(storeId);
+            const buttonText = isVisited ? '⊘ Mark as Unvisited' : '✓ Mark as Visited';
+            const buttonColor = isVisited ? '#dc3545' : '#0055BF';
+
+            const visitButton = `
+                <button id="visit-btn-${storeId}"
+                        onclick="toggleStoreVisited('${storeId}', '${storeName}', '${city}', '${country}')"
+                        style="
+                            margin-top: 8px;
+                            padding: 8px 12px;
+                            background-color: ${buttonColor};
+                            color: white;
+                            border: none;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            font-size: 12px;
+                            width: 100%;
+                            font-weight: bold;
+                            transition: background-color 0.2s;
+                        "
+                        onmouseover="this.style.opacity='0.85'"
+                        onmouseout="this.style.opacity='1'">
+                    ${buttonText}
+                </button>
+            `;
+
+            const enhancedContent = htmlContent + visitButton;
+            originalPopup.setContent(enhancedContent);
+        }
+
+        function toggleStoreVisited(storeId, storeName, city, country) {
+            const registryEntry = window.storeRegistry[storeId];
+            if (!registryEntry) return;
+
+            const marker = registryEntry.marker;
+            const isVisited = VisitedStoresManager.isVisited(storeId);
+
+            // Update visited state
+            if (isVisited) {
+                VisitedStoresManager.unmark(storeId);
+                showToastNotification('⊘ Unmarked as Visited');
+            } else {
+                VisitedStoresManager.mark(storeId, { name: storeName, city, country });
+                showToastNotification('✓ Marked as Visited!');
+            }
+
+            // Update marker icon
+            const newIsVisited = VisitedStoresManager.isVisited(storeId);
+            const correctIcon = IconManager.getIcon(registryEntry.storeType, newIsVisited);
+            marker.setIcon(correctIcon);
+
+            // Update tooltip
+            const tooltipText = newIsVisited ? `${storeName} (✓ Visited)` : storeName;
+            marker.setTooltipContent(tooltipText);
+
+            // Close and reopen popup to show updated button
+            if (marker.isPopupOpen && marker.isPopupOpen()) {
+                marker.closePopup();
+                setTimeout(() => {
+                    enhancePopupWithButton(marker.getPopup(), storeId, storeName, city, country);
+                    marker.openPopup();
+                }, 100);
+            }
+
+            // Update summary panel
+            updateSummaryPanel();
+        }
+
+        // Make it globally accessible
+        window.toggleStoreVisited = toggleStoreVisited;
+
+        // ============================================================================
+        // INITIALIZE AFTER DOM IS READY
+        // ============================================================================
+        function initUI() {
+            addUnvisitedFilterCheckbox();
+            updateSummaryPanel();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initUI);
+        } else {
+            initUI();
+        }
+    </script>
+    <!-- END LEGO MAP UI ENHANCEMENT -->
+
+</body>
 </html>
