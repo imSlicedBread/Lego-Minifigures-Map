@@ -1,0 +1,3728 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_5dc165a63f01f128c58e883046fe30a7 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+<div style="position: fixed; 
+     top: 10px; left: 50px; width: 450px; height: 120px; 
+     background-color: white; border:2px solid grey; z-index:9999; 
+     font-size:16px; padding: 12px; box-shadow: 2px 2px 6px rgba(0,0,0,0.3);">
+     <h3 style="margin: 0; color: #ED1C24;">🧱 LEGO® Minifigure Factory & Build-a-Minifigure</h3>
+     <p style="margin: 5px 0; font-size: 14px;">Complete European Location Map</p>
+     <p style="margin: 5px 0; font-size: 12px;">
+     <span style="color: #ED1C24;">⭐ 16 Official Stores</span> | 
+     <span style="color: #0055BF;">🏪 58 Certified Stores</span>
+     </p>
+     <p style="margin: 5px 0; font-size: 11px; color: #666;">
+     <b>Total: 74 locations</b> across 22 countries
+     </p>
+</div>
+    
+<div style="position: fixed; 
+     bottom: 50px; left: 50px; width: 280px; 
+     background-color: white; border:2px solid grey; z-index:9999; 
+     font-size:12px; padding: 12px; box-shadow: 2px 2px 6px rgba(0,0,0,0.3);">
+     <h4 style="margin: 0 0 10px 0;">Store Types:</h4>
+     <p style="margin: 5px; padding: 5px; background: #ffe0e0; border-radius: 3px;">
+         <span style="color: #ED1C24;">⭐</span> <b>Official LEGO Store</b><br>
+         <span style="font-size: 10px;">Confirmed Minifigure Factory experience</span>
+     </p>
+     <p style="margin: 5px; padding: 5px; background: #e0f0ff; border-radius: 3px;">
+         <span style="color: #0055BF;">🏪</span> <b>LEGO Certified Store</b><br>
+         <span style="font-size: 10px;">Build-a-Minifigure stations available</span>
+     </p>
+     <p style="margin-top: 10px; font-size: 10px; color: #666; font-style: italic;">
+     Click on markers for details. Use layer control to toggle store types.
+     </p>
+</div>
+    
+            <div class="folium-map" id="map_5dc165a63f01f128c58e883046fe30a7" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_5dc165a63f01f128c58e883046fe30a7 = L.map(
+                "map_5dc165a63f01f128c58e883046fe30a7",
+                {
+                    center: [50.0, 10.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_076fa30e3043b68426fa50a459330ddb = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_076fa30e3043b68426fa50a459330ddb.addTo(map_5dc165a63f01f128c58e883046fe30a7);
+        
+    
+            var marker_cluster_4fca783c6f975db92c2d7ac91f46a560 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_7878b205fb958115e0b472e52c91c662 = L.marker(
+                [51.5101, -0.1307],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_3b653405dcf90007a4be734d7934a6b5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_17221c6c9075bdba8256aee08fdd5092 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6d0df3e81bcde5853aae89c175e6e831 = $(`<div id="html_6d0df3e81bcde5853aae89c175e6e831" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store London Leicester Square</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> London</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_17221c6c9075bdba8256aee08fdd5092.setContent(html_6d0df3e81bcde5853aae89c175e6e831);
+            
+        
+
+        marker_7878b205fb958115e0b472e52c91c662.bindPopup(popup_17221c6c9075bdba8256aee08fdd5092)
+        ;
+
+        
+    
+    
+            marker_7878b205fb958115e0b472e52c91c662.bindTooltip(
+                `<div>
+                     LEGO Store London Leicester Square
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7878b205fb958115e0b472e52c91c662.setIcon(icon_3b653405dcf90007a4be734d7934a6b5);
+            
+    
+            var marker_88b209c1f658f931375caac1c683132f = L.marker(
+                [53.4084, -2.9916],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_630626cabcca32df23d58fe395eeebaa = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ffd275adb87f1cf1aeb6683e7d968043 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2ece21fe372095d085bc4d5bb9fda261 = $(`<div id="html_2ece21fe372095d085bc4d5bb9fda261" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Liverpool</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Liverpool</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_ffd275adb87f1cf1aeb6683e7d968043.setContent(html_2ece21fe372095d085bc4d5bb9fda261);
+            
+        
+
+        marker_88b209c1f658f931375caac1c683132f.bindPopup(popup_ffd275adb87f1cf1aeb6683e7d968043)
+        ;
+
+        
+    
+    
+            marker_88b209c1f658f931375caac1c683132f.bindTooltip(
+                `<div>
+                     LEGO Store Liverpool
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_88b209c1f658f931375caac1c683132f.setIcon(icon_630626cabcca32df23d58fe395eeebaa);
+            
+    
+            var marker_0fe7008b01a14428586d8fe19c1040a8 = L.marker(
+                [52.4779, -1.8936],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_36dbb6700cfffee6fc92d81dc5e0a9de = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_01317438a6a955afe1d54f6d213f0836 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_37fb047b5026935b110beec3287110d9 = $(`<div id="html_37fb047b5026935b110beec3287110d9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Birmingham Bullring</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Birmingham</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_01317438a6a955afe1d54f6d213f0836.setContent(html_37fb047b5026935b110beec3287110d9);
+            
+        
+
+        marker_0fe7008b01a14428586d8fe19c1040a8.bindPopup(popup_01317438a6a955afe1d54f6d213f0836)
+        ;
+
+        
+    
+    
+            marker_0fe7008b01a14428586d8fe19c1040a8.bindTooltip(
+                `<div>
+                     LEGO Store Birmingham Bullring
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0fe7008b01a14428586d8fe19c1040a8.setIcon(icon_36dbb6700cfffee6fc92d81dc5e0a9de);
+            
+    
+            var marker_df5a847b7045a01d0e7998be4821ca25 = L.marker(
+                [51.4829, -0.6089],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_b9a644759cebe35f5078a75d53edefde = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_806abad287c1fd638fa77ab50a062882 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_313b3d98a2db9d8b385c6677237d9b00 = $(`<div id="html_313b3d98a2db9d8b385c6677237d9b00" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGOLAND Windsor</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Windsor</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_806abad287c1fd638fa77ab50a062882.setContent(html_313b3d98a2db9d8b385c6677237d9b00);
+            
+        
+
+        marker_df5a847b7045a01d0e7998be4821ca25.bindPopup(popup_806abad287c1fd638fa77ab50a062882)
+        ;
+
+        
+    
+    
+            marker_df5a847b7045a01d0e7998be4821ca25.bindTooltip(
+                `<div>
+                     LEGOLAND Windsor
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_df5a847b7045a01d0e7998be4821ca25.setIcon(icon_b9a644759cebe35f5078a75d53edefde);
+            
+    
+            var marker_3ba21ec6ed93df6f048de7cd24ed8ff8 = L.marker(
+                [53.3438, -6.26],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_5d5b601ffa685a085e142b20a2b84779 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e17a62da6d1aed37d17bd74b57e915e1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_44579a1f2ce246961e611ab296c32aaf = $(`<div id="html_44579a1f2ce246961e611ab296c32aaf" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Grafton Street</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Dublin</p>         <p style="margin: 3px 0;"><b>Country:</b> Ireland</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_e17a62da6d1aed37d17bd74b57e915e1.setContent(html_44579a1f2ce246961e611ab296c32aaf);
+            
+        
+
+        marker_3ba21ec6ed93df6f048de7cd24ed8ff8.bindPopup(popup_e17a62da6d1aed37d17bd74b57e915e1)
+        ;
+
+        
+    
+    
+            marker_3ba21ec6ed93df6f048de7cd24ed8ff8.bindTooltip(
+                `<div>
+                     LEGO Store Grafton Street
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3ba21ec6ed93df6f048de7cd24ed8ff8.setIcon(icon_5d5b601ffa685a085e142b20a2b84779);
+            
+    
+            var marker_145ad58caf54bee99523cdb95a8b3983 = L.marker(
+                [52.52, 13.405],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_d5b1757deedd3f17a40b7ffcbfb6138e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cbe5e133d4f44b4205b1c51e1cf44a7c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d23ce593554775d0336086e66e838330 = $(`<div id="html_d23ce593554775d0336086e66e838330" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Berlin</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Berlin</p>         <p style="margin: 3px 0;"><b>Country:</b> Germany</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_cbe5e133d4f44b4205b1c51e1cf44a7c.setContent(html_d23ce593554775d0336086e66e838330);
+            
+        
+
+        marker_145ad58caf54bee99523cdb95a8b3983.bindPopup(popup_cbe5e133d4f44b4205b1c51e1cf44a7c)
+        ;
+
+        
+    
+    
+            marker_145ad58caf54bee99523cdb95a8b3983.bindTooltip(
+                `<div>
+                     LEGO Store Berlin
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_145ad58caf54bee99523cdb95a8b3983.setIcon(icon_d5b1757deedd3f17a40b7ffcbfb6138e);
+            
+    
+            var marker_422a6f912fac150c7e208449b905714e = L.marker(
+                [51.2277, 6.7735],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_ce194ca0e0fc1cbea9861f227b561314 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ae3b6ebae38953327cebdd2cde6ffdd8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5e89151fc0d74913a8420d7c798c47fe = $(`<div id="html_5e89151fc0d74913a8420d7c798c47fe" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Düsseldorf</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Düsseldorf</p>         <p style="margin: 3px 0;"><b>Country:</b> Germany</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_ae3b6ebae38953327cebdd2cde6ffdd8.setContent(html_5e89151fc0d74913a8420d7c798c47fe);
+            
+        
+
+        marker_422a6f912fac150c7e208449b905714e.bindPopup(popup_ae3b6ebae38953327cebdd2cde6ffdd8)
+        ;
+
+        
+    
+    
+            marker_422a6f912fac150c7e208449b905714e.bindTooltip(
+                `<div>
+                     LEGO Store Düsseldorf
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_422a6f912fac150c7e208449b905714e.setIcon(icon_ce194ca0e0fc1cbea9861f227b561314);
+            
+    
+            var marker_9a7a9c5544569465545dea7f8bea73b5 = L.marker(
+                [50.9375, 6.9603],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_7eb328527b56a928810a88e3aa1bf857 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cfd9fca1cb894cfa7ba8811d92b0db0f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ed8c07ae44d5d3f1d27a494561946e19 = $(`<div id="html_ed8c07ae44d5d3f1d27a494561946e19" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Cologne</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Cologne</p>         <p style="margin: 3px 0;"><b>Country:</b> Germany</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_cfd9fca1cb894cfa7ba8811d92b0db0f.setContent(html_ed8c07ae44d5d3f1d27a494561946e19);
+            
+        
+
+        marker_9a7a9c5544569465545dea7f8bea73b5.bindPopup(popup_cfd9fca1cb894cfa7ba8811d92b0db0f)
+        ;
+
+        
+    
+    
+            marker_9a7a9c5544569465545dea7f8bea73b5.bindTooltip(
+                `<div>
+                     LEGO Store Cologne
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9a7a9c5544569465545dea7f8bea73b5.setIcon(icon_7eb328527b56a928810a88e3aa1bf857);
+            
+    
+            var marker_3e7f58b08a6494ac528a0567348a1dc9 = L.marker(
+                [48.7758, 9.1829],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_5c54e51d77749200a70f6c1474145d76 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fd1fba22e8b2d7d6ca22b20b7d531542 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4e890c1eb215feed2a0730acbd1e2c82 = $(`<div id="html_4e890c1eb215feed2a0730acbd1e2c82" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Stuttgart</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Stuttgart</p>         <p style="margin: 3px 0;"><b>Country:</b> Germany</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_fd1fba22e8b2d7d6ca22b20b7d531542.setContent(html_4e890c1eb215feed2a0730acbd1e2c82);
+            
+        
+
+        marker_3e7f58b08a6494ac528a0567348a1dc9.bindPopup(popup_fd1fba22e8b2d7d6ca22b20b7d531542)
+        ;
+
+        
+    
+    
+            marker_3e7f58b08a6494ac528a0567348a1dc9.bindTooltip(
+                `<div>
+                     LEGO Store Stuttgart
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3e7f58b08a6494ac528a0567348a1dc9.setIcon(icon_5c54e51d77749200a70f6c1474145d76);
+            
+    
+            var marker_90d4818f3a727b195b4b7e637aa3af3f = L.marker(
+                [48.1351, 11.582],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_3a001e6e04f9cf5fdbe92afce7a6d3af = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_119bd99935a37a5563d37b88a66dd649 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_70140d8102e1c060aaf8cf45bf124679 = $(`<div id="html_70140d8102e1c060aaf8cf45bf124679" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Munich Zentrum</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Munich</p>         <p style="margin: 3px 0;"><b>Country:</b> Germany</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_119bd99935a37a5563d37b88a66dd649.setContent(html_70140d8102e1c060aaf8cf45bf124679);
+            
+        
+
+        marker_90d4818f3a727b195b4b7e637aa3af3f.bindPopup(popup_119bd99935a37a5563d37b88a66dd649)
+        ;
+
+        
+    
+    
+            marker_90d4818f3a727b195b4b7e637aa3af3f.bindTooltip(
+                `<div>
+                     LEGO Store Munich Zentrum
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_90d4818f3a727b195b4b7e637aa3af3f.setIcon(icon_3a001e6e04f9cf5fdbe92afce7a6d3af);
+            
+    
+            var marker_9543d3389f23edfae9255cfc468aa4c8 = L.marker(
+                [55.7308, 9.1264],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_290d488b11e0e9720b247b8334d61167 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_66288748b04f852bdbc607b43bd373f3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d6407d420740927a13fda4c30f711675 = $(`<div id="html_d6407d420740927a13fda4c30f711675" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO House</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Billund</p>         <p style="margin: 3px 0;"><b>Country:</b> Denmark</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_66288748b04f852bdbc607b43bd373f3.setContent(html_d6407d420740927a13fda4c30f711675);
+            
+        
+
+        marker_9543d3389f23edfae9255cfc468aa4c8.bindPopup(popup_66288748b04f852bdbc607b43bd373f3)
+        ;
+
+        
+    
+    
+            marker_9543d3389f23edfae9255cfc468aa4c8.bindTooltip(
+                `<div>
+                     LEGO House
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9543d3389f23edfae9255cfc468aa4c8.setIcon(icon_290d488b11e0e9720b247b8334d61167);
+            
+    
+            var marker_6cbdf2958ba10fb683b123d925fc84f1 = L.marker(
+                [55.6736, 12.5681],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_5f8bd8d0c7792c33e0f208a567d44763 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6a54521e11fa1f1f5cf1a3a828fff813 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_79c23690c92d0d28b9467193d3e66de4 = $(`<div id="html_79c23690c92d0d28b9467193d3e66de4" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Tivoli Gardens</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Copenhagen</p>         <p style="margin: 3px 0;"><b>Country:</b> Denmark</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_6a54521e11fa1f1f5cf1a3a828fff813.setContent(html_79c23690c92d0d28b9467193d3e66de4);
+            
+        
+
+        marker_6cbdf2958ba10fb683b123d925fc84f1.bindPopup(popup_6a54521e11fa1f1f5cf1a3a828fff813)
+        ;
+
+        
+    
+    
+            marker_6cbdf2958ba10fb683b123d925fc84f1.bindTooltip(
+                `<div>
+                     LEGO Store Tivoli Gardens
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6cbdf2958ba10fb683b123d925fc84f1.setIcon(icon_5f8bd8d0c7792c33e0f208a567d44763);
+            
+    
+            var marker_e3c56251fd80715c6ac2f6034cf88f3a = L.marker(
+                [55.6761, 12.5683],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_4f0992e7f809d489bd1975727d7d3d89 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_71571434ab6d3c942bb6941174a3a0a9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9987d2dec14108117e497863de050e56 = $(`<div id="html_9987d2dec14108117e497863de050e56" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store København</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Copenhagen</p>         <p style="margin: 3px 0;"><b>Country:</b> Denmark</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_71571434ab6d3c942bb6941174a3a0a9.setContent(html_9987d2dec14108117e497863de050e56);
+            
+        
+
+        marker_e3c56251fd80715c6ac2f6034cf88f3a.bindPopup(popup_71571434ab6d3c942bb6941174a3a0a9)
+        ;
+
+        
+    
+    
+            marker_e3c56251fd80715c6ac2f6034cf88f3a.bindTooltip(
+                `<div>
+                     LEGO Store København
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e3c56251fd80715c6ac2f6034cf88f3a.setIcon(icon_4f0992e7f809d489bd1975727d7d3d89);
+            
+    
+            var marker_5fa30c272ffaf470810ce491c6f7132a = L.marker(
+                [52.3676, 4.9041],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_27b853e43f1bd294476ed0797c72bb38 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c064479602af5616026d29a9e0342a1f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a9a517c6cd7ecfca0bf14a66d88dbf77 = $(`<div id="html_a9a517c6cd7ecfca0bf14a66d88dbf77" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Amsterdam</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Amsterdam</p>         <p style="margin: 3px 0;"><b>Country:</b> Netherlands</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_c064479602af5616026d29a9e0342a1f.setContent(html_a9a517c6cd7ecfca0bf14a66d88dbf77);
+            
+        
+
+        marker_5fa30c272ffaf470810ce491c6f7132a.bindPopup(popup_c064479602af5616026d29a9e0342a1f)
+        ;
+
+        
+    
+    
+            marker_5fa30c272ffaf470810ce491c6f7132a.bindTooltip(
+                `<div>
+                     LEGO Store Amsterdam
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5fa30c272ffaf470810ce491c6f7132a.setIcon(icon_27b853e43f1bd294476ed0797c72bb38);
+            
+    
+            var marker_cf8e7cafebfd60581462874038237ff5 = L.marker(
+                [41.3851, 2.1734],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_90d19384e63c1c099be6c3279b58a510 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4bbc9842d198c093970bc6854071307b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b1181b54291258d92a1f1e68ac90af3b = $(`<div id="html_b1181b54291258d92a1f1e68ac90af3b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Barcelona</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Barcelona</p>         <p style="margin: 3px 0;"><b>Country:</b> Spain</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_4bbc9842d198c093970bc6854071307b.setContent(html_b1181b54291258d92a1f1e68ac90af3b);
+            
+        
+
+        marker_cf8e7cafebfd60581462874038237ff5.bindPopup(popup_4bbc9842d198c093970bc6854071307b)
+        ;
+
+        
+    
+    
+            marker_cf8e7cafebfd60581462874038237ff5.bindTooltip(
+                `<div>
+                     LEGO Store Barcelona
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cf8e7cafebfd60581462874038237ff5.setIcon(icon_90d19384e63c1c099be6c3279b58a510);
+            
+    
+            var marker_391f9043ef874db9a8d9fa8a8a6dc94e = L.marker(
+                [48.867, 2.7819],
+                {
+}
+            ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+        
+    
+            var icon_ba82889387f703ced2421c4279ec977a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f33e65283b13f3381b94a00456fddba7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_38a2dd79e20f4cdea460c18a6c9e489d = $(`<div id="html_38a2dd79e20f4cdea460c18a6c9e489d" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGO Store Disneyland Paris</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Marne-la-Vallée</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>✓ Minifigure Factory Confirmed</b><br>             Design custom minifigures with personalized torsos!         </p>     </div>     </div>`)[0];
+                popup_f33e65283b13f3381b94a00456fddba7.setContent(html_38a2dd79e20f4cdea460c18a6c9e489d);
+            
+        
+
+        marker_391f9043ef874db9a8d9fa8a8a6dc94e.bindPopup(popup_f33e65283b13f3381b94a00456fddba7)
+        ;
+
+        
+    
+    
+            marker_391f9043ef874db9a8d9fa8a8a6dc94e.bindTooltip(
+                `<div>
+                     LEGO Store Disneyland Paris
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_391f9043ef874db9a8d9fa8a8a6dc94e.setIcon(icon_ba82889387f703ced2421c4279ec977a);
+            
+    
+            marker_cluster_4fca783c6f975db92c2d7ac91f46a560.addTo(map_5dc165a63f01f128c58e883046fe30a7);
+        
+    
+            var marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_af9caba2402ff7ce93539bf40be7ac30 = L.marker(
+                [45.4654, 9.1978],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_270eb2a2b90c137aba8e53bee231ef97 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9853b1a327938f869e19901283974cdc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d26af4fe85bbe48e631da03281d50ef7 = $(`<div id="html_d26af4fe85bbe48e631da03281d50ef7" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store San Babila</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Milan</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Minifigure Factory<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_9853b1a327938f869e19901283974cdc.setContent(html_d26af4fe85bbe48e631da03281d50ef7);
+            
+        
+
+        marker_af9caba2402ff7ce93539bf40be7ac30.bindPopup(popup_9853b1a327938f869e19901283974cdc)
+        ;
+
+        
+    
+    
+            marker_af9caba2402ff7ce93539bf40be7ac30.bindTooltip(
+                `<div>
+                     LEGO Certified Store San Babila
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_af9caba2402ff7ce93539bf40be7ac30.setIcon(icon_270eb2a2b90c137aba8e53bee231ef97);
+            
+    
+            var marker_5e56607a4643033c3db6dcc5b8f56e02 = L.marker(
+                [45.4668, 9.1853],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_1243ab2531aaab788743f5a9c48c1914 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5ca88d81a2b877f41f8ca6204c59cc9f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_08b2c86ee68593975d29d774615cf92b = $(`<div id="html_08b2c86ee68593975d29d774615cf92b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Via Dante</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Milan</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_5ca88d81a2b877f41f8ca6204c59cc9f.setContent(html_08b2c86ee68593975d29d774615cf92b);
+            
+        
+
+        marker_5e56607a4643033c3db6dcc5b8f56e02.bindPopup(popup_5ca88d81a2b877f41f8ca6204c59cc9f)
+        ;
+
+        
+    
+    
+            marker_5e56607a4643033c3db6dcc5b8f56e02.bindTooltip(
+                `<div>
+                     LEGO Certified Store Via Dante
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5e56607a4643033c3db6dcc5b8f56e02.setIcon(icon_1243ab2531aaab788743f5a9c48c1914);
+            
+    
+            var marker_1989d1cdc196c9a87aaa6dc8aafbfc4a = L.marker(
+                [41.9028, 12.4764],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_5e47200cd828203e90baa6f5a069302b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b81c663f68e9eb57ad626d5cf47040f8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b3c1792c64340d625ad1c5407c1dd2e3 = $(`<div id="html_b3c1792c64340d625ad1c5407c1dd2e3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Roma</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Rome</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_b81c663f68e9eb57ad626d5cf47040f8.setContent(html_b3c1792c64340d625ad1c5407c1dd2e3);
+            
+        
+
+        marker_1989d1cdc196c9a87aaa6dc8aafbfc4a.bindPopup(popup_b81c663f68e9eb57ad626d5cf47040f8)
+        ;
+
+        
+    
+    
+            marker_1989d1cdc196c9a87aaa6dc8aafbfc4a.bindTooltip(
+                `<div>
+                     LEGO Certified Store Roma
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1989d1cdc196c9a87aaa6dc8aafbfc4a.setIcon(icon_5e47200cd828203e90baa6f5a069302b);
+            
+    
+            var marker_e78d88748227f7a6fcb5cffb72088447 = L.marker(
+                [41.9626, 12.5297],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_5f2dc81bcd5e897f1bd46689bb8edf92 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b7c7a3f46f8c3bb3e103dbcc17c5d74a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a226ebb3d8f2719869d51b1b679336ab = $(`<div id="html_a226ebb3d8f2719869d51b1b679336ab" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Porta di Roma</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Rome</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_b7c7a3f46f8c3bb3e103dbcc17c5d74a.setContent(html_a226ebb3d8f2719869d51b1b679336ab);
+            
+        
+
+        marker_e78d88748227f7a6fcb5cffb72088447.bindPopup(popup_b7c7a3f46f8c3bb3e103dbcc17c5d74a)
+        ;
+
+        
+    
+    
+            marker_e78d88748227f7a6fcb5cffb72088447.bindTooltip(
+                `<div>
+                     LEGO Certified Store Porta di Roma
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e78d88748227f7a6fcb5cffb72088447.setIcon(icon_5f2dc81bcd5e897f1bd46689bb8edf92);
+            
+    
+            var marker_70759f6cdcc39062f1d2766a66a52deb = L.marker(
+                [45.0677, 7.6824],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_949d01b963561d421c62bea50abb53e6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b1a65b19c54736e00a9bafef9a05e486 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9e2de4d65a96adb55007f8524c333447 = $(`<div id="html_9e2de4d65a96adb55007f8524c333447" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Turin</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Turin</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_b1a65b19c54736e00a9bafef9a05e486.setContent(html_9e2de4d65a96adb55007f8524c333447);
+            
+        
+
+        marker_70759f6cdcc39062f1d2766a66a52deb.bindPopup(popup_b1a65b19c54736e00a9bafef9a05e486)
+        ;
+
+        
+    
+    
+            marker_70759f6cdcc39062f1d2766a66a52deb.bindTooltip(
+                `<div>
+                     LEGO Certified Store Turin
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_70759f6cdcc39062f1d2766a66a52deb.setIcon(icon_949d01b963561d421c62bea50abb53e6);
+            
+    
+            var marker_bbf782243f0219e658683f37928cea73 = L.marker(
+                [43.771, 11.254],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_f3ea93696f05b2e87a98749809585fe7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d8d3f1e4da4d3029f209bde7c236a320 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c0ce7ad56bcef08438622f3f95e55185 = $(`<div id="html_c0ce7ad56bcef08438622f3f95e55185" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Florence</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Florence</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_d8d3f1e4da4d3029f209bde7c236a320.setContent(html_c0ce7ad56bcef08438622f3f95e55185);
+            
+        
+
+        marker_bbf782243f0219e658683f37928cea73.bindPopup(popup_d8d3f1e4da4d3029f209bde7c236a320)
+        ;
+
+        
+    
+    
+            marker_bbf782243f0219e658683f37928cea73.bindTooltip(
+                `<div>
+                     LEGO Certified Store Florence
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bbf782243f0219e658683f37928cea73.setIcon(icon_f3ea93696f05b2e87a98749809585fe7);
+            
+    
+            var marker_eca9b253f5f81cc479b279bc206ca03c = L.marker(
+                [40.8518, 14.2681],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_0953cb70aa01c7fb6cd0dd3a0f9be308 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_69ada4e27be6c3e36dfc8fb73dd82659 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b50c1763bbb0ce3bcffbc7d724a69db8 = $(`<div id="html_b50c1763bbb0ce3bcffbc7d724a69db8" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Naples</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Naples</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_69ada4e27be6c3e36dfc8fb73dd82659.setContent(html_b50c1763bbb0ce3bcffbc7d724a69db8);
+            
+        
+
+        marker_eca9b253f5f81cc479b279bc206ca03c.bindPopup(popup_69ada4e27be6c3e36dfc8fb73dd82659)
+        ;
+
+        
+    
+    
+            marker_eca9b253f5f81cc479b279bc206ca03c.bindTooltip(
+                `<div>
+                     LEGO Certified Store Naples
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_eca9b253f5f81cc479b279bc206ca03c.setIcon(icon_0953cb70aa01c7fb6cd0dd3a0f9be308);
+            
+    
+            var marker_60ba3a7c30ad4fe883fbd4a28d0bb134 = L.marker(
+                [44.4949, 11.3426],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_4b7d52697a6664f2642ee41757302df1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0a7aa568606ce2d44c2252997b06997d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b8f7feecaa36cf9af86c397b08ede166 = $(`<div id="html_b8f7feecaa36cf9af86c397b08ede166" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Bologna</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Bologna</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_0a7aa568606ce2d44c2252997b06997d.setContent(html_b8f7feecaa36cf9af86c397b08ede166);
+            
+        
+
+        marker_60ba3a7c30ad4fe883fbd4a28d0bb134.bindPopup(popup_0a7aa568606ce2d44c2252997b06997d)
+        ;
+
+        
+    
+    
+            marker_60ba3a7c30ad4fe883fbd4a28d0bb134.bindTooltip(
+                `<div>
+                     LEGO Certified Store Bologna
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_60ba3a7c30ad4fe883fbd4a28d0bb134.setIcon(icon_4b7d52697a6664f2642ee41757302df1);
+            
+    
+            var marker_a3762381ddd6bea4ccc8dbe831e7c440 = L.marker(
+                [44.4056, 8.9463],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_2345041bcfd6d085e16c819d61daaa08 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_278726cdcadb12fcba75f650c8756b18 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_83ed6b9b2a312c356d2e76acfa596c4a = $(`<div id="html_83ed6b9b2a312c356d2e76acfa596c4a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Genoa</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Genoa</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_278726cdcadb12fcba75f650c8756b18.setContent(html_83ed6b9b2a312c356d2e76acfa596c4a);
+            
+        
+
+        marker_a3762381ddd6bea4ccc8dbe831e7c440.bindPopup(popup_278726cdcadb12fcba75f650c8756b18)
+        ;
+
+        
+    
+    
+            marker_a3762381ddd6bea4ccc8dbe831e7c440.bindTooltip(
+                `<div>
+                     LEGO Certified Store Genoa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a3762381ddd6bea4ccc8dbe831e7c440.setIcon(icon_2345041bcfd6d085e16c819d61daaa08);
+            
+    
+            var marker_56cdadd62a61bfa7c00189b8ce39ecc3 = L.marker(
+                [45.4408, 12.3155],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_cdc72a6c1687c3f54fc05c7cfb800a35 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ce2bd6eade89d1804396e021b9c0c014 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_586fb08515c3dfec7733d705a9f8ea95 = $(`<div id="html_586fb08515c3dfec7733d705a9f8ea95" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Venice</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Venice</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_ce2bd6eade89d1804396e021b9c0c014.setContent(html_586fb08515c3dfec7733d705a9f8ea95);
+            
+        
+
+        marker_56cdadd62a61bfa7c00189b8ce39ecc3.bindPopup(popup_ce2bd6eade89d1804396e021b9c0c014)
+        ;
+
+        
+    
+    
+            marker_56cdadd62a61bfa7c00189b8ce39ecc3.bindTooltip(
+                `<div>
+                     LEGO Certified Store Venice
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_56cdadd62a61bfa7c00189b8ce39ecc3.setIcon(icon_cdc72a6c1687c3f54fc05c7cfb800a35);
+            
+    
+            var marker_4848c8c1ebd7edeb99fd633a6e2a2c08 = L.marker(
+                [45.4384, 10.9916],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_c9f889e665b68d30d9c7a11ae680b230 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d4aff97aa4110e6caadef0c0a90d1997 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3f009af5e7e00ecf85742cf1bc8c8b42 = $(`<div id="html_3f009af5e7e00ecf85742cf1bc8c8b42" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Verona</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Verona</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_d4aff97aa4110e6caadef0c0a90d1997.setContent(html_3f009af5e7e00ecf85742cf1bc8c8b42);
+            
+        
+
+        marker_4848c8c1ebd7edeb99fd633a6e2a2c08.bindPopup(popup_d4aff97aa4110e6caadef0c0a90d1997)
+        ;
+
+        
+    
+    
+            marker_4848c8c1ebd7edeb99fd633a6e2a2c08.bindTooltip(
+                `<div>
+                     LEGO Certified Store Verona
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4848c8c1ebd7edeb99fd633a6e2a2c08.setIcon(icon_c9f889e665b68d30d9c7a11ae680b230);
+            
+    
+            var marker_4cd461be200db3321732a83d318c974a = L.marker(
+                [45.6983, 9.6773],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_6e5f79dced198793300aaf2c2a802ab8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d64d1cb3ba5c067c996406c9e1d51cb6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d277d73c52ac4012cf93826761624461 = $(`<div id="html_d277d73c52ac4012cf93826761624461" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Bergamo</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Bergamo</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_d64d1cb3ba5c067c996406c9e1d51cb6.setContent(html_d277d73c52ac4012cf93826761624461);
+            
+        
+
+        marker_4cd461be200db3321732a83d318c974a.bindPopup(popup_d64d1cb3ba5c067c996406c9e1d51cb6)
+        ;
+
+        
+    
+    
+            marker_4cd461be200db3321732a83d318c974a.bindTooltip(
+                `<div>
+                     LEGO Certified Store Bergamo
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4cd461be200db3321732a83d318c974a.setIcon(icon_6e5f79dced198793300aaf2c2a802ab8);
+            
+    
+            var marker_511820b891ebcef0491b54ac8a329d90 = L.marker(
+                [45.5416, 10.2118],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_c124ed8345c58cdb035214b5d4a14a80 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2a47c988da96b607a1174b41890f5138 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d874d8934958b9bb4b692785cd8f4c07 = $(`<div id="html_d874d8934958b9bb4b692785cd8f4c07" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Brescia</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Brescia</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_2a47c988da96b607a1174b41890f5138.setContent(html_d874d8934958b9bb4b692785cd8f4c07);
+            
+        
+
+        marker_511820b891ebcef0491b54ac8a329d90.bindPopup(popup_2a47c988da96b607a1174b41890f5138)
+        ;
+
+        
+    
+    
+            marker_511820b891ebcef0491b54ac8a329d90.bindTooltip(
+                `<div>
+                     LEGO Certified Store Brescia
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_511820b891ebcef0491b54ac8a329d90.setIcon(icon_c124ed8345c58cdb035214b5d4a14a80);
+            
+    
+            var marker_a656e55bab325c999091e0b4dc4478b8 = L.marker(
+                [45.4064, 11.8768],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_4a76aff4ddd6fede61f1325c759cc3bb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_260ce447998b701c98e146917f421ac8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0fc8b99f725343b7f97dbff03cf13bf6 = $(`<div id="html_0fc8b99f725343b7f97dbff03cf13bf6" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Padua</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Padua</p>         <p style="margin: 3px 0;"><b>Country:</b> Italy</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_260ce447998b701c98e146917f421ac8.setContent(html_0fc8b99f725343b7f97dbff03cf13bf6);
+            
+        
+
+        marker_a656e55bab325c999091e0b4dc4478b8.bindPopup(popup_260ce447998b701c98e146917f421ac8)
+        ;
+
+        
+    
+    
+            marker_a656e55bab325c999091e0b4dc4478b8.bindTooltip(
+                `<div>
+                     LEGO Certified Store Padua
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a656e55bab325c999091e0b4dc4478b8.setIcon(icon_4a76aff4ddd6fede61f1325c759cc3bb);
+            
+    
+            var marker_d9bd89e481f81cf71b8d6368396487e3 = L.marker(
+                [38.7639, -9.1698],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_8a1b742a231a0653cd4d4d4638ed23d1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bdd5084c28330f2192f1473046308341 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9f7195d5d215c4a90d5b5cc3118d2eb3 = $(`<div id="html_9f7195d5d215c4a90d5b5cc3118d2eb3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Lisbon</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Lisbon</p>         <p style="margin: 3px 0;"><b>Country:</b> Portugal</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Minifigure Factory<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_bdd5084c28330f2192f1473046308341.setContent(html_9f7195d5d215c4a90d5b5cc3118d2eb3);
+            
+        
+
+        marker_d9bd89e481f81cf71b8d6368396487e3.bindPopup(popup_bdd5084c28330f2192f1473046308341)
+        ;
+
+        
+    
+    
+            marker_d9bd89e481f81cf71b8d6368396487e3.bindTooltip(
+                `<div>
+                     LEGO Certified Store Lisbon
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d9bd89e481f81cf71b8d6368396487e3.setIcon(icon_8a1b742a231a0653cd4d4d4638ed23d1);
+            
+    
+            var marker_581518274908ace8a7ab3052a1a3fbf5 = L.marker(
+                [41.1579, -8.6291],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_c672f7c919e27dc3c34bbc7974d0b8d4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cbaa03ae08c455fe72774f95049c43aa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_320b398f05d2645543f8ff02ca922720 = $(`<div id="html_320b398f05d2645543f8ff02ca922720" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Porto</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Porto</p>         <p style="margin: 3px 0;"><b>Country:</b> Portugal</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_cbaa03ae08c455fe72774f95049c43aa.setContent(html_320b398f05d2645543f8ff02ca922720);
+            
+        
+
+        marker_581518274908ace8a7ab3052a1a3fbf5.bindPopup(popup_cbaa03ae08c455fe72774f95049c43aa)
+        ;
+
+        
+    
+    
+            marker_581518274908ace8a7ab3052a1a3fbf5.bindTooltip(
+                `<div>
+                     LEGO Certified Store Porto
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_581518274908ace8a7ab3052a1a3fbf5.setIcon(icon_c672f7c919e27dc3c34bbc7974d0b8d4);
+            
+    
+            var marker_252e2fad61c448ab33e1d207fcfff4a1 = L.marker(
+                [48.8619, 2.3467],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_72efbcf4cd3c8ef91fa39659dcc6c833 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ec16714b83175f4abe7fa6be2bee5546 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_30100db643e67d3dd359cae7b12bc775 = $(`<div id="html_30100db643e67d3dd359cae7b12bc775" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Paris Les Halles</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Paris</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_ec16714b83175f4abe7fa6be2bee5546.setContent(html_30100db643e67d3dd359cae7b12bc775);
+            
+        
+
+        marker_252e2fad61c448ab33e1d207fcfff4a1.bindPopup(popup_ec16714b83175f4abe7fa6be2bee5546)
+        ;
+
+        
+    
+    
+            marker_252e2fad61c448ab33e1d207fcfff4a1.bindTooltip(
+                `<div>
+                     LEGO Certified Store Paris Les Halles
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_252e2fad61c448ab33e1d207fcfff4a1.setIcon(icon_72efbcf4cd3c8ef91fa39659dcc6c833);
+            
+    
+            var marker_94b318ac3b61d8db7a3a331532323804 = L.marker(
+                [45.764, 4.8357],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_a8d4541f8a4f466dd569a39e5998f7b0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_70b11c2767c2605d494c260307cac171 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_44fc9ac3f4b0cd2162eb7567265e8adf = $(`<div id="html_44fc9ac3f4b0cd2162eb7567265e8adf" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Lyon</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Lyon</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_70b11c2767c2605d494c260307cac171.setContent(html_44fc9ac3f4b0cd2162eb7567265e8adf);
+            
+        
+
+        marker_94b318ac3b61d8db7a3a331532323804.bindPopup(popup_70b11c2767c2605d494c260307cac171)
+        ;
+
+        
+    
+    
+            marker_94b318ac3b61d8db7a3a331532323804.bindTooltip(
+                `<div>
+                     LEGO Certified Store Lyon
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_94b318ac3b61d8db7a3a331532323804.setIcon(icon_a8d4541f8a4f466dd569a39e5998f7b0);
+            
+    
+            var marker_b113a87c5a1cc9d6f0a1af75a9ebe61b = L.marker(
+                [43.2965, 5.3698],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_5fa82d68142375c39f6508b9ed2f2e94 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8e31dd744cca58ca91d7f6d811139c8a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1878ad44b231d46964896e7324f537d9 = $(`<div id="html_1878ad44b231d46964896e7324f537d9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Marseille</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Marseille</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_8e31dd744cca58ca91d7f6d811139c8a.setContent(html_1878ad44b231d46964896e7324f537d9);
+            
+        
+
+        marker_b113a87c5a1cc9d6f0a1af75a9ebe61b.bindPopup(popup_8e31dd744cca58ca91d7f6d811139c8a)
+        ;
+
+        
+    
+    
+            marker_b113a87c5a1cc9d6f0a1af75a9ebe61b.bindTooltip(
+                `<div>
+                     LEGO Certified Store Marseille
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b113a87c5a1cc9d6f0a1af75a9ebe61b.setIcon(icon_5fa82d68142375c39f6508b9ed2f2e94);
+            
+    
+            var marker_aef7a9c8d32d98babecb3b850be636b3 = L.marker(
+                [43.6047, 1.4442],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_69ca75bfcfdf055bf64855b9734258a8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_373807855af745770e4056d1309d1ac9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d905a9ada917b6bf5fbac7139a5e109f = $(`<div id="html_d905a9ada917b6bf5fbac7139a5e109f" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Toulouse</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Toulouse</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_373807855af745770e4056d1309d1ac9.setContent(html_d905a9ada917b6bf5fbac7139a5e109f);
+            
+        
+
+        marker_aef7a9c8d32d98babecb3b850be636b3.bindPopup(popup_373807855af745770e4056d1309d1ac9)
+        ;
+
+        
+    
+    
+            marker_aef7a9c8d32d98babecb3b850be636b3.bindTooltip(
+                `<div>
+                     LEGO Certified Store Toulouse
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_aef7a9c8d32d98babecb3b850be636b3.setIcon(icon_69ca75bfcfdf055bf64855b9734258a8);
+            
+    
+            var marker_b2f13a639349ab5cc2524da673c8dc16 = L.marker(
+                [48.5734, 7.7521],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_4bbed18c31f1f376e65d3b4364a0b451 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5037e59785086f8b17a2b0984582caaf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e7c8e4d7e18632def29376705bf32716 = $(`<div id="html_e7c8e4d7e18632def29376705bf32716" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Strasbourg</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Strasbourg</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_5037e59785086f8b17a2b0984582caaf.setContent(html_e7c8e4d7e18632def29376705bf32716);
+            
+        
+
+        marker_b2f13a639349ab5cc2524da673c8dc16.bindPopup(popup_5037e59785086f8b17a2b0984582caaf)
+        ;
+
+        
+    
+    
+            marker_b2f13a639349ab5cc2524da673c8dc16.bindTooltip(
+                `<div>
+                     LEGO Certified Store Strasbourg
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b2f13a639349ab5cc2524da673c8dc16.setIcon(icon_4bbed18c31f1f376e65d3b4364a0b451);
+            
+    
+            var marker_d10e9e924217de49f325a58e698a84d2 = L.marker(
+                [50.6292, 3.0573],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_b40fd537aff13710efc27c674a93ed1a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6d10a573098ca6142d00545a03b07c0f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a0633247e263eb9d1b07e4d6738366e9 = $(`<div id="html_a0633247e263eb9d1b07e4d6738366e9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Lille</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Lille</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_6d10a573098ca6142d00545a03b07c0f.setContent(html_a0633247e263eb9d1b07e4d6738366e9);
+            
+        
+
+        marker_d10e9e924217de49f325a58e698a84d2.bindPopup(popup_6d10a573098ca6142d00545a03b07c0f)
+        ;
+
+        
+    
+    
+            marker_d10e9e924217de49f325a58e698a84d2.bindTooltip(
+                `<div>
+                     LEGO Certified Store Lille
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d10e9e924217de49f325a58e698a84d2.setIcon(icon_b40fd537aff13710efc27c674a93ed1a);
+            
+    
+            var marker_df7541356573ef927d83fcaa428755d1 = L.marker(
+                [44.8378, -0.5792],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_f31bcf9afd5d605a7a37c92a725c4f92 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5a3313399bbfe39d624e2f65940fcca7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cfb2193b7d1b05180a4ad43c233160ff = $(`<div id="html_cfb2193b7d1b05180a4ad43c233160ff" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Bordeaux</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Bordeaux</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_5a3313399bbfe39d624e2f65940fcca7.setContent(html_cfb2193b7d1b05180a4ad43c233160ff);
+            
+        
+
+        marker_df7541356573ef927d83fcaa428755d1.bindPopup(popup_5a3313399bbfe39d624e2f65940fcca7)
+        ;
+
+        
+    
+    
+            marker_df7541356573ef927d83fcaa428755d1.bindTooltip(
+                `<div>
+                     LEGO Certified Store Bordeaux
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_df7541356573ef927d83fcaa428755d1.setIcon(icon_f31bcf9afd5d605a7a37c92a725c4f92);
+            
+    
+            var marker_e4519612a2816d6384fdc119407d734c = L.marker(
+                [43.7102, 7.262],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_ef751fadab54f5d8c36f36bb800a1eb1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_60090b5f7675f70d59876056eb06fe4c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9db5dc03d8da34e283e120ab9204bbb1 = $(`<div id="html_9db5dc03d8da34e283e120ab9204bbb1" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Nice</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Nice</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_60090b5f7675f70d59876056eb06fe4c.setContent(html_9db5dc03d8da34e283e120ab9204bbb1);
+            
+        
+
+        marker_e4519612a2816d6384fdc119407d734c.bindPopup(popup_60090b5f7675f70d59876056eb06fe4c)
+        ;
+
+        
+    
+    
+            marker_e4519612a2816d6384fdc119407d734c.bindTooltip(
+                `<div>
+                     LEGO Certified Store Nice
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e4519612a2816d6384fdc119407d734c.setIcon(icon_ef751fadab54f5d8c36f36bb800a1eb1);
+            
+    
+            var marker_cbbedaad910c27babe1b3d4081834ace = L.marker(
+                [47.2184, -1.5536],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_350d2932cc788dbb49d2360ea6726839 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a08242448fd01437a87e385484ad5f41 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e898b6cafdf2ad0decad6b90a396a8b2 = $(`<div id="html_e898b6cafdf2ad0decad6b90a396a8b2" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Nantes</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Nantes</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_a08242448fd01437a87e385484ad5f41.setContent(html_e898b6cafdf2ad0decad6b90a396a8b2);
+            
+        
+
+        marker_cbbedaad910c27babe1b3d4081834ace.bindPopup(popup_a08242448fd01437a87e385484ad5f41)
+        ;
+
+        
+    
+    
+            marker_cbbedaad910c27babe1b3d4081834ace.bindTooltip(
+                `<div>
+                     LEGO Certified Store Nantes
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cbbedaad910c27babe1b3d4081834ace.setIcon(icon_350d2932cc788dbb49d2360ea6726839);
+            
+    
+            var marker_d933480c5003c1a5ddd4605027dc5929 = L.marker(
+                [48.1173, -1.6778],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_1c555afd66b1384fbca20e49e1f68ceb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1b3d3d5996d4aa613de4637429f28a26 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3e129bd9707179c791e424a6d9398459 = $(`<div id="html_3e129bd9707179c791e424a6d9398459" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Rennes</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Rennes</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_1b3d3d5996d4aa613de4637429f28a26.setContent(html_3e129bd9707179c791e424a6d9398459);
+            
+        
+
+        marker_d933480c5003c1a5ddd4605027dc5929.bindPopup(popup_1b3d3d5996d4aa613de4637429f28a26)
+        ;
+
+        
+    
+    
+            marker_d933480c5003c1a5ddd4605027dc5929.bindTooltip(
+                `<div>
+                     LEGO Certified Store Rennes
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d933480c5003c1a5ddd4605027dc5929.setIcon(icon_1c555afd66b1384fbca20e49e1f68ceb);
+            
+    
+            var marker_01cd68cf30fcba29f484b19df7dc519f = L.marker(
+                [45.1885, 5.7245],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_be6f72c914d7eff6b58542f173adf99a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_aff3662650fb7e951363599c026932cd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_049db097aeb99b3f93345c4cba131a53 = $(`<div id="html_049db097aeb99b3f93345c4cba131a53" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Grenoble</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Grenoble</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_aff3662650fb7e951363599c026932cd.setContent(html_049db097aeb99b3f93345c4cba131a53);
+            
+        
+
+        marker_01cd68cf30fcba29f484b19df7dc519f.bindPopup(popup_aff3662650fb7e951363599c026932cd)
+        ;
+
+        
+    
+    
+            marker_01cd68cf30fcba29f484b19df7dc519f.bindTooltip(
+                `<div>
+                     LEGO Certified Store Grenoble
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_01cd68cf30fcba29f484b19df7dc519f.setIcon(icon_be6f72c914d7eff6b58542f173adf99a);
+            
+    
+            var marker_b9c5f35638aa73bc051fe82d2ba15e02 = L.marker(
+                [47.322, 5.0415],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_a158b5460108d4376e90fb3681f07f5e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fbcfa6e5abd8cc4302a2d450154d552c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9a6acc50d57ec805a6ddfaf5bbeaa81a = $(`<div id="html_9a6acc50d57ec805a6ddfaf5bbeaa81a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Dijon</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Dijon</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_fbcfa6e5abd8cc4302a2d450154d552c.setContent(html_9a6acc50d57ec805a6ddfaf5bbeaa81a);
+            
+        
+
+        marker_b9c5f35638aa73bc051fe82d2ba15e02.bindPopup(popup_fbcfa6e5abd8cc4302a2d450154d552c)
+        ;
+
+        
+    
+    
+            marker_b9c5f35638aa73bc051fe82d2ba15e02.bindTooltip(
+                `<div>
+                     LEGO Certified Store Dijon
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b9c5f35638aa73bc051fe82d2ba15e02.setIcon(icon_a158b5460108d4376e90fb3681f07f5e);
+            
+    
+            var marker_65dfcfdc3b7a457bd144a5506abadc88 = L.marker(
+                [49.1193, 6.1757],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_775e2cef546fed6e07b8570ee9b3b6e1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f9314882cef285c7742e58175c3ab08a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3e8a92dcf19eb4df9500215919b0ef3a = $(`<div id="html_3e8a92dcf19eb4df9500215919b0ef3a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Metz</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Metz</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_f9314882cef285c7742e58175c3ab08a.setContent(html_3e8a92dcf19eb4df9500215919b0ef3a);
+            
+        
+
+        marker_65dfcfdc3b7a457bd144a5506abadc88.bindPopup(popup_f9314882cef285c7742e58175c3ab08a)
+        ;
+
+        
+    
+    
+            marker_65dfcfdc3b7a457bd144a5506abadc88.bindTooltip(
+                `<div>
+                     LEGO Certified Store Metz
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_65dfcfdc3b7a457bd144a5506abadc88.setIcon(icon_775e2cef546fed6e07b8570ee9b3b6e1);
+            
+    
+            var marker_fef185251b8d6617f0f4c2ca00c16a85 = L.marker(
+                [43.4917, -1.5214],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_7400b942a61449f8c879271c65c0b043 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_83a098450a6f5d21501e7b508ddd9248 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0e220f9f5683ecf1c4112dc35baa556b = $(`<div id="html_0e220f9f5683ecf1c4112dc35baa556b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Anglet</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Anglet</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_83a098450a6f5d21501e7b508ddd9248.setContent(html_0e220f9f5683ecf1c4112dc35baa556b);
+            
+        
+
+        marker_fef185251b8d6617f0f4c2ca00c16a85.bindPopup(popup_83a098450a6f5d21501e7b508ddd9248)
+        ;
+
+        
+    
+    
+            marker_fef185251b8d6617f0f4c2ca00c16a85.bindTooltip(
+                `<div>
+                     LEGO Certified Store Anglet
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fef185251b8d6617f0f4c2ca00c16a85.setIcon(icon_7400b942a61449f8c879271c65c0b043);
+            
+    
+            var marker_5271aa41bd2dadc4a8317346e72aeedd = L.marker(
+                [49.4944, 0.1079],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_4d4e8cd089b95319a735ea60da41bfc1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d583ea52178cdb8c982489e426d00a24 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8bdf35f7adec00a50ec896df5261d35e = $(`<div id="html_8bdf35f7adec00a50ec896df5261d35e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Le Havre</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Le Havre</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_d583ea52178cdb8c982489e426d00a24.setContent(html_8bdf35f7adec00a50ec896df5261d35e);
+            
+        
+
+        marker_5271aa41bd2dadc4a8317346e72aeedd.bindPopup(popup_d583ea52178cdb8c982489e426d00a24)
+        ;
+
+        
+    
+    
+            marker_5271aa41bd2dadc4a8317346e72aeedd.bindTooltip(
+                `<div>
+                     LEGO Certified Store Le Havre
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5271aa41bd2dadc4a8317346e72aeedd.setIcon(icon_4d4e8cd089b95319a735ea60da41bfc1);
+            
+    
+            var marker_66ec7e59cda0dd843aa18fc77497093d = L.marker(
+                [50.4279, 2.8317],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_85fb7aea4eefd765d1a944ca87e733f2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e463f6206003499f9719f3ca8948553e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_89f8a5fd7d7bc2a08811a70e7cf5747c = $(`<div id="html_89f8a5fd7d7bc2a08811a70e7cf5747c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Lens</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Lens</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_e463f6206003499f9719f3ca8948553e.setContent(html_89f8a5fd7d7bc2a08811a70e7cf5747c);
+            
+        
+
+        marker_66ec7e59cda0dd843aa18fc77497093d.bindPopup(popup_e463f6206003499f9719f3ca8948553e)
+        ;
+
+        
+    
+    
+            marker_66ec7e59cda0dd843aa18fc77497093d.bindTooltip(
+                `<div>
+                     LEGO Certified Store Lens
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_66ec7e59cda0dd843aa18fc77497093d.setIcon(icon_85fb7aea4eefd765d1a944ca87e733f2);
+            
+    
+            var marker_d064c14e5a8b92d77d21563c3c26d1a5 = L.marker(
+                [45.8992, 6.1294],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_0d053149d466fcce8b3b564d24871ce0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_57907bfb1b37518e4190d42676114718 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fb8c7cbc24dbe07310e75fbac0fc8598 = $(`<div id="html_fb8c7cbc24dbe07310e75fbac0fc8598" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Annecy</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Annecy</p>         <p style="margin: 3px 0;"><b>Country:</b> France</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_57907bfb1b37518e4190d42676114718.setContent(html_fb8c7cbc24dbe07310e75fbac0fc8598);
+            
+        
+
+        marker_d064c14e5a8b92d77d21563c3c26d1a5.bindPopup(popup_57907bfb1b37518e4190d42676114718)
+        ;
+
+        
+    
+    
+            marker_d064c14e5a8b92d77d21563c3c26d1a5.bindTooltip(
+                `<div>
+                     LEGO Certified Store Annecy
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d064c14e5a8b92d77d21563c3c26d1a5.setIcon(icon_0d053149d466fcce8b3b564d24871ce0);
+            
+    
+            var marker_baf8aea570cae026adf8e37d91a3c246 = L.marker(
+                [40.4168, -3.7038],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_26b241356fe23cb7690e7ff68f87a2e5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f239aed02070948d9eefaa43671b08dc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0cb49b4b6f72b90ef801cb010f3a8bf3 = $(`<div id="html_0cb49b4b6f72b90ef801cb010f3a8bf3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Madrid</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Madrid</p>         <p style="margin: 3px 0;"><b>Country:</b> Spain</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_f239aed02070948d9eefaa43671b08dc.setContent(html_0cb49b4b6f72b90ef801cb010f3a8bf3);
+            
+        
+
+        marker_baf8aea570cae026adf8e37d91a3c246.bindPopup(popup_f239aed02070948d9eefaa43671b08dc)
+        ;
+
+        
+    
+    
+            marker_baf8aea570cae026adf8e37d91a3c246.bindTooltip(
+                `<div>
+                     LEGO Certified Store Madrid
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_baf8aea570cae026adf8e37d91a3c246.setIcon(icon_26b241356fe23cb7690e7ff68f87a2e5);
+            
+    
+            var marker_6cb44ab85ca6caf16a203eaf5ca83f4e = L.marker(
+                [39.4699, -0.3763],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_478df0993b0d6907e1d948fa398b7188 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2457ee50ce29709e698359d97eb72d8c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5e8c17e7aeaf74e59f1d7fbf39e313e8 = $(`<div id="html_5e8c17e7aeaf74e59f1d7fbf39e313e8" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Valencia</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Valencia</p>         <p style="margin: 3px 0;"><b>Country:</b> Spain</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_2457ee50ce29709e698359d97eb72d8c.setContent(html_5e8c17e7aeaf74e59f1d7fbf39e313e8);
+            
+        
+
+        marker_6cb44ab85ca6caf16a203eaf5ca83f4e.bindPopup(popup_2457ee50ce29709e698359d97eb72d8c)
+        ;
+
+        
+    
+    
+            marker_6cb44ab85ca6caf16a203eaf5ca83f4e.bindTooltip(
+                `<div>
+                     LEGO Certified Store Valencia
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6cb44ab85ca6caf16a203eaf5ca83f4e.setIcon(icon_478df0993b0d6907e1d948fa398b7188);
+            
+    
+            var marker_128cb6d583a60dbe690c914f598aef79 = L.marker(
+                [37.3891, -5.9845],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_28bfd737eaa74cb5bd842782dcec7509 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5f7d708d92df653dd900791fa84396c9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e90f389a59a4dc6a87808b7564ad80bd = $(`<div id="html_e90f389a59a4dc6a87808b7564ad80bd" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Seville</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Seville</p>         <p style="margin: 3px 0;"><b>Country:</b> Spain</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_5f7d708d92df653dd900791fa84396c9.setContent(html_e90f389a59a4dc6a87808b7564ad80bd);
+            
+        
+
+        marker_128cb6d583a60dbe690c914f598aef79.bindPopup(popup_5f7d708d92df653dd900791fa84396c9)
+        ;
+
+        
+    
+    
+            marker_128cb6d583a60dbe690c914f598aef79.bindTooltip(
+                `<div>
+                     LEGO Certified Store Seville
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_128cb6d583a60dbe690c914f598aef79.setIcon(icon_28bfd737eaa74cb5bd842782dcec7509);
+            
+    
+            var marker_50c3aed1107fa69287a9e5134f7aef05 = L.marker(
+                [43.263, -2.935],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_70af8fd29aee6056a4a26c804338bb5c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_82319903f69a37baecea163c94a1086c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_942c24b7a57dfc6d43ac9dde6fa6f672 = $(`<div id="html_942c24b7a57dfc6d43ac9dde6fa6f672" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Bilbao</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Bilbao</p>         <p style="margin: 3px 0;"><b>Country:</b> Spain</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_82319903f69a37baecea163c94a1086c.setContent(html_942c24b7a57dfc6d43ac9dde6fa6f672);
+            
+        
+
+        marker_50c3aed1107fa69287a9e5134f7aef05.bindPopup(popup_82319903f69a37baecea163c94a1086c)
+        ;
+
+        
+    
+    
+            marker_50c3aed1107fa69287a9e5134f7aef05.bindTooltip(
+                `<div>
+                     LEGO Certified Store Bilbao
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_50c3aed1107fa69287a9e5134f7aef05.setIcon(icon_70af8fd29aee6056a4a26c804338bb5c);
+            
+    
+            var marker_be77dab37ba15e168a672f08c3f703f3 = L.marker(
+                [41.6488, -0.8891],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_aedab36afffab53284cedae2168fcb26 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fbe3de7e14552579168a06b1297c85b3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9db2528eb52430207f97f7b686fd06a0 = $(`<div id="html_9db2528eb52430207f97f7b686fd06a0" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Zaragoza</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Zaragoza</p>         <p style="margin: 3px 0;"><b>Country:</b> Spain</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_fbe3de7e14552579168a06b1297c85b3.setContent(html_9db2528eb52430207f97f7b686fd06a0);
+            
+        
+
+        marker_be77dab37ba15e168a672f08c3f703f3.bindPopup(popup_fbe3de7e14552579168a06b1297c85b3)
+        ;
+
+        
+    
+    
+            marker_be77dab37ba15e168a672f08c3f703f3.bindTooltip(
+                `<div>
+                     LEGO Certified Store Zaragoza
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_be77dab37ba15e168a672f08c3f703f3.setIcon(icon_aedab36afffab53284cedae2168fcb26);
+            
+    
+            var marker_cd876e62d8f0a19fc3ea4eebbbb0912f = L.marker(
+                [52.2297, 21.0122],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_19d64f29be64b0caa23cc51b0dad1ee0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_40b49183d35616a45e6d22d453150320 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_49b11461b001cbc9ec75b6dff5a50026 = $(`<div id="html_49b11461b001cbc9ec75b6dff5a50026" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Store Warsaw</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Warsaw</p>         <p style="margin: 3px 0;"><b>Country:</b> Poland</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_40b49183d35616a45e6d22d453150320.setContent(html_49b11461b001cbc9ec75b6dff5a50026);
+            
+        
+
+        marker_cd876e62d8f0a19fc3ea4eebbbb0912f.bindPopup(popup_40b49183d35616a45e6d22d453150320)
+        ;
+
+        
+    
+    
+            marker_cd876e62d8f0a19fc3ea4eebbbb0912f.bindTooltip(
+                `<div>
+                     LEGO Store Warsaw
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cd876e62d8f0a19fc3ea4eebbbb0912f.setIcon(icon_19d64f29be64b0caa23cc51b0dad1ee0);
+            
+    
+            var marker_572d82cb376718621ac347c20fd632c5 = L.marker(
+                [50.0647, 19.945],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_980f49a98e20513f733562aab74addbe = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b4a8e5e33c1035e799c92c946dff811a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_45ea4e5f23c25d37dbcb0f75a9d794d9 = $(`<div id="html_45ea4e5f23c25d37dbcb0f75a9d794d9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Store Krakow</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Krakow</p>         <p style="margin: 3px 0;"><b>Country:</b> Poland</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_b4a8e5e33c1035e799c92c946dff811a.setContent(html_45ea4e5f23c25d37dbcb0f75a9d794d9);
+            
+        
+
+        marker_572d82cb376718621ac347c20fd632c5.bindPopup(popup_b4a8e5e33c1035e799c92c946dff811a)
+        ;
+
+        
+    
+    
+            marker_572d82cb376718621ac347c20fd632c5.bindTooltip(
+                `<div>
+                     LEGO Store Krakow
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_572d82cb376718621ac347c20fd632c5.setIcon(icon_980f49a98e20513f733562aab74addbe);
+            
+    
+            var marker_2a2a41a0f33855e7cca3606c5b6d695e = L.marker(
+                [54.352, 18.6466],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_2efc57309303d62d2143e77092505e82 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_62ff21d18951f6eea462abedacfd27ce = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cae8d1558c198b822047e23036f3b42b = $(`<div id="html_cae8d1558c198b822047e23036f3b42b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Store Gdansk</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Gdansk</p>         <p style="margin: 3px 0;"><b>Country:</b> Poland</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_62ff21d18951f6eea462abedacfd27ce.setContent(html_cae8d1558c198b822047e23036f3b42b);
+            
+        
+
+        marker_2a2a41a0f33855e7cca3606c5b6d695e.bindPopup(popup_62ff21d18951f6eea462abedacfd27ce)
+        ;
+
+        
+    
+    
+            marker_2a2a41a0f33855e7cca3606c5b6d695e.bindTooltip(
+                `<div>
+                     LEGO Store Gdansk
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2a2a41a0f33855e7cca3606c5b6d695e.setIcon(icon_2efc57309303d62d2143e77092505e82);
+            
+    
+            var marker_f54fd5eb96dcd1ba2d42989807b312f6 = L.marker(
+                [51.1079, 17.0385],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_1f9a5beb86c61dd2f4bd296209691c72 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_049767d295197aa303a98fb22109559c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7ed2fe23d834dab017d0eb387262e4dd = $(`<div id="html_7ed2fe23d834dab017d0eb387262e4dd" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Store Wroclaw</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Wroclaw</p>         <p style="margin: 3px 0;"><b>Country:</b> Poland</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_049767d295197aa303a98fb22109559c.setContent(html_7ed2fe23d834dab017d0eb387262e4dd);
+            
+        
+
+        marker_f54fd5eb96dcd1ba2d42989807b312f6.bindPopup(popup_049767d295197aa303a98fb22109559c)
+        ;
+
+        
+    
+    
+            marker_f54fd5eb96dcd1ba2d42989807b312f6.bindTooltip(
+                `<div>
+                     LEGO Store Wroclaw
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f54fd5eb96dcd1ba2d42989807b312f6.setIcon(icon_1f9a5beb86c61dd2f4bd296209691c72);
+            
+    
+            var marker_4dd51f2f77bdde041bf4a67daa65c452 = L.marker(
+                [44.4268, 26.1025],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_515a42811da2282223a75fbf5f62d935 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_29f57b2437da0aa5aad8d8594b6b6a0e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c3c87f14657659cb69227ac6051ef9fd = $(`<div id="html_c3c87f14657659cb69227ac6051ef9fd" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Bucharest</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Bucharest</p>         <p style="margin: 3px 0;"><b>Country:</b> Romania</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_29f57b2437da0aa5aad8d8594b6b6a0e.setContent(html_c3c87f14657659cb69227ac6051ef9fd);
+            
+        
+
+        marker_4dd51f2f77bdde041bf4a67daa65c452.bindPopup(popup_29f57b2437da0aa5aad8d8594b6b6a0e)
+        ;
+
+        
+    
+    
+            marker_4dd51f2f77bdde041bf4a67daa65c452.bindTooltip(
+                `<div>
+                     LEGO Certified Store Bucharest
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4dd51f2f77bdde041bf4a67daa65c452.setIcon(icon_515a42811da2282223a75fbf5f62d935);
+            
+    
+            var marker_98f020522bd02bd1d70be1ac84579424 = L.marker(
+                [46.7712, 23.6236],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_2376753ea3293cf592c721923754fe7a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5d5d28af10e1ab93ad93fec6b0821369 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e9445246144e707897b7382db39ee26c = $(`<div id="html_e9445246144e707897b7382db39ee26c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Cluj-Napoca</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Cluj-Napoca</p>         <p style="margin: 3px 0;"><b>Country:</b> Romania</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_5d5d28af10e1ab93ad93fec6b0821369.setContent(html_e9445246144e707897b7382db39ee26c);
+            
+        
+
+        marker_98f020522bd02bd1d70be1ac84579424.bindPopup(popup_5d5d28af10e1ab93ad93fec6b0821369)
+        ;
+
+        
+    
+    
+            marker_98f020522bd02bd1d70be1ac84579424.bindTooltip(
+                `<div>
+                     LEGO Certified Store Cluj-Napoca
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_98f020522bd02bd1d70be1ac84579424.setIcon(icon_2376753ea3293cf592c721923754fe7a);
+            
+    
+            var marker_ab9e0db4272846b862201117702c094c = L.marker(
+                [45.6579, 25.6012],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_86b0c7e7eabbe9516598ded8043c08ab = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6c31efb3f9bb6f9cb43a7b6a3cd30521 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a2f1f67e37597a5720e9f8ea35f63799 = $(`<div id="html_a2f1f67e37597a5720e9f8ea35f63799" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Brașov</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Brașov</p>         <p style="margin: 3px 0;"><b>Country:</b> Romania</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_6c31efb3f9bb6f9cb43a7b6a3cd30521.setContent(html_a2f1f67e37597a5720e9f8ea35f63799);
+            
+        
+
+        marker_ab9e0db4272846b862201117702c094c.bindPopup(popup_6c31efb3f9bb6f9cb43a7b6a3cd30521)
+        ;
+
+        
+    
+    
+            marker_ab9e0db4272846b862201117702c094c.bindTooltip(
+                `<div>
+                     LEGO Certified Store Brașov
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ab9e0db4272846b862201117702c094c.setIcon(icon_86b0c7e7eabbe9516598ded8043c08ab);
+            
+    
+            var marker_86c7ed7a293000da31004f744086b1bc = L.marker(
+                [37.9838, 23.7275],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_160c9358f9ce3e9442be487b307b5bd7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_34f3db5dced6677b53d788c2a43ef399 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6be331d05db75d1f4249412ad8d81c21 = $(`<div id="html_6be331d05db75d1f4249412ad8d81c21" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Athens</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Athens</p>         <p style="margin: 3px 0;"><b>Country:</b> Greece</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_34f3db5dced6677b53d788c2a43ef399.setContent(html_6be331d05db75d1f4249412ad8d81c21);
+            
+        
+
+        marker_86c7ed7a293000da31004f744086b1bc.bindPopup(popup_34f3db5dced6677b53d788c2a43ef399)
+        ;
+
+        
+    
+    
+            marker_86c7ed7a293000da31004f744086b1bc.bindTooltip(
+                `<div>
+                     LEGO Certified Store Athens
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_86c7ed7a293000da31004f744086b1bc.setIcon(icon_160c9358f9ce3e9442be487b307b5bd7);
+            
+    
+            var marker_ad7c5f81f06304144e017c5f31284a36 = L.marker(
+                [40.6401, 22.9444],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_045cae0e7532d0273cd4505b97c7b021 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_39e7920e28fc6526c131ba516186c083 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4532d7770cbf132fc99c66b342bebb75 = $(`<div id="html_4532d7770cbf132fc99c66b342bebb75" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Thessaloniki</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Thessaloniki</p>         <p style="margin: 3px 0;"><b>Country:</b> Greece</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_39e7920e28fc6526c131ba516186c083.setContent(html_4532d7770cbf132fc99c66b342bebb75);
+            
+        
+
+        marker_ad7c5f81f06304144e017c5f31284a36.bindPopup(popup_39e7920e28fc6526c131ba516186c083)
+        ;
+
+        
+    
+    
+            marker_ad7c5f81f06304144e017c5f31284a36.bindTooltip(
+                `<div>
+                     LEGO Certified Store Thessaloniki
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ad7c5f81f06304144e017c5f31284a36.setIcon(icon_045cae0e7532d0273cd4505b97c7b021);
+            
+    
+            var marker_4c627b61cc88f06c4e043b84edeec0de = L.marker(
+                [44.7866, 20.4489],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_8b8bb5af180de9d145e0d58e30497ab1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e21fd45a4219877bc4e3ca9c4810c90e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4b6be1a52573394fbe64ba391156005c = $(`<div id="html_4b6be1a52573394fbe64ba391156005c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Belgrade</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Belgrade</p>         <p style="margin: 3px 0;"><b>Country:</b> Serbia</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_e21fd45a4219877bc4e3ca9c4810c90e.setContent(html_4b6be1a52573394fbe64ba391156005c);
+            
+        
+
+        marker_4c627b61cc88f06c4e043b84edeec0de.bindPopup(popup_e21fd45a4219877bc4e3ca9c4810c90e)
+        ;
+
+        
+    
+    
+            marker_4c627b61cc88f06c4e043b84edeec0de.bindTooltip(
+                `<div>
+                     LEGO Certified Store Belgrade
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4c627b61cc88f06c4e043b84edeec0de.setIcon(icon_8b8bb5af180de9d145e0d58e30497ab1);
+            
+    
+            var marker_21153a29319aa73417a42c2c92c89cd7 = L.marker(
+                [45.815, 15.9819],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_6f9a6dba014b50782b9370b4784718af = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_653554bcc5e766e3b032b09fae1816bd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fc8acaf87d8ddac4b96d019512b6e84d = $(`<div id="html_fc8acaf87d8ddac4b96d019512b6e84d" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Zagreb</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Zagreb</p>         <p style="margin: 3px 0;"><b>Country:</b> Croatia</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_653554bcc5e766e3b032b09fae1816bd.setContent(html_fc8acaf87d8ddac4b96d019512b6e84d);
+            
+        
+
+        marker_21153a29319aa73417a42c2c92c89cd7.bindPopup(popup_653554bcc5e766e3b032b09fae1816bd)
+        ;
+
+        
+    
+    
+            marker_21153a29319aa73417a42c2c92c89cd7.bindTooltip(
+                `<div>
+                     LEGO Certified Store Zagreb
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_21153a29319aa73417a42c2c92c89cd7.setIcon(icon_6f9a6dba014b50782b9370b4784718af);
+            
+    
+            var marker_fc8f3d545ed49ac15b68575e89a75387 = L.marker(
+                [46.0569, 14.5058],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_4fbaf3f00f3d96294728d97ca09d8cf9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fad2ed137c4f07499193b955631b7e7d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_83503613eaf54cacdf2b5dc7fbc81dbd = $(`<div id="html_83503613eaf54cacdf2b5dc7fbc81dbd" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Ljubljana</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Ljubljana</p>         <p style="margin: 3px 0;"><b>Country:</b> Slovenia</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_fad2ed137c4f07499193b955631b7e7d.setContent(html_83503613eaf54cacdf2b5dc7fbc81dbd);
+            
+        
+
+        marker_fc8f3d545ed49ac15b68575e89a75387.bindPopup(popup_fad2ed137c4f07499193b955631b7e7d)
+        ;
+
+        
+    
+    
+            marker_fc8f3d545ed49ac15b68575e89a75387.bindTooltip(
+                `<div>
+                     LEGO Certified Store Ljubljana
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fc8f3d545ed49ac15b68575e89a75387.setIcon(icon_4fbaf3f00f3d96294728d97ca09d8cf9);
+            
+    
+            var marker_d7ad80c532b4ed3d95fe39b415927a87 = L.marker(
+                [50.0755, 14.4378],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_3c5cb835929e7ba372910a670c4a0d93 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7b796947a53f2f3f0a2ab5de4e81b6fa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_50bafbd4d2c6024b256f045ddd942dc4 = $(`<div id="html_50bafbd4d2c6024b256f045ddd942dc4" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Store Prague</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Prague</p>         <p style="margin: 3px 0;"><b>Country:</b> Czech Republic</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_7b796947a53f2f3f0a2ab5de4e81b6fa.setContent(html_50bafbd4d2c6024b256f045ddd942dc4);
+            
+        
+
+        marker_d7ad80c532b4ed3d95fe39b415927a87.bindPopup(popup_7b796947a53f2f3f0a2ab5de4e81b6fa)
+        ;
+
+        
+    
+    
+            marker_d7ad80c532b4ed3d95fe39b415927a87.bindTooltip(
+                `<div>
+                     LEGO Store Prague
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d7ad80c532b4ed3d95fe39b415927a87.setIcon(icon_3c5cb835929e7ba372910a670c4a0d93);
+            
+    
+            var marker_21728ff597793aa9eca096d3861769f5 = L.marker(
+                [48.2082, 16.3738],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_223858e7e0f81196a29b247fa1486cfb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_39668fa68bdab2d139f3ce258efdc53b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_edab7b5f4eccb5027690a1d788db2842 = $(`<div id="html_edab7b5f4eccb5027690a1d788db2842" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Store Vienna</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Vienna</p>         <p style="margin: 3px 0;"><b>Country:</b> Austria</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_39668fa68bdab2d139f3ce258efdc53b.setContent(html_edab7b5f4eccb5027690a1d788db2842);
+            
+        
+
+        marker_21728ff597793aa9eca096d3861769f5.bindPopup(popup_39668fa68bdab2d139f3ce258efdc53b)
+        ;
+
+        
+    
+    
+            marker_21728ff597793aa9eca096d3861769f5.bindTooltip(
+                `<div>
+                     LEGO Store Vienna
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_21728ff597793aa9eca096d3861769f5.setIcon(icon_223858e7e0f81196a29b247fa1486cfb);
+            
+    
+            var marker_47b8dc4b8f95727026d8f168841b7869 = L.marker(
+                [47.3769, 8.5417],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_736e36fe0c672699935619fcbaeacbef = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7ddce06617545595f85a2bd9ad64f346 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e825a9c2b15d5c20aa2a4d171583fd74 = $(`<div id="html_e825a9c2b15d5c20aa2a4d171583fd74" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Store Zurich</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Zurich</p>         <p style="margin: 3px 0;"><b>Country:</b> Switzerland</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_7ddce06617545595f85a2bd9ad64f346.setContent(html_e825a9c2b15d5c20aa2a4d171583fd74);
+            
+        
+
+        marker_47b8dc4b8f95727026d8f168841b7869.bindPopup(popup_7ddce06617545595f85a2bd9ad64f346)
+        ;
+
+        
+    
+    
+            marker_47b8dc4b8f95727026d8f168841b7869.bindTooltip(
+                `<div>
+                     LEGO Store Zurich
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_47b8dc4b8f95727026d8f168841b7869.setIcon(icon_736e36fe0c672699935619fcbaeacbef);
+            
+    
+            var marker_b08f05d6dd6d68a84c3ac085e7ebe342 = L.marker(
+                [50.8503, 4.3517],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_3f3ac5fccb9f993e806d3e588da601d5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_906717adc6c7af9a38babd9cc0ef93da = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a0e3206502675d27b10b6ff02645a791 = $(`<div id="html_a0e3206502675d27b10b6ff02645a791" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Store Brussels</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Brussels</p>         <p style="margin: 3px 0;"><b>Country:</b> Belgium</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_906717adc6c7af9a38babd9cc0ef93da.setContent(html_a0e3206502675d27b10b6ff02645a791);
+            
+        
+
+        marker_b08f05d6dd6d68a84c3ac085e7ebe342.bindPopup(popup_906717adc6c7af9a38babd9cc0ef93da)
+        ;
+
+        
+    
+    
+            marker_b08f05d6dd6d68a84c3ac085e7ebe342.bindTooltip(
+                `<div>
+                     LEGO Store Brussels
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b08f05d6dd6d68a84c3ac085e7ebe342.setIcon(icon_3f3ac5fccb9f993e806d3e588da601d5);
+            
+    
+            var marker_e8aa19261ea20612a8f22a412906341c = L.marker(
+                [51.2334, 4.5228],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_8d4a09bd77f3baa682ae53571c9899ea = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ed0315e7f02ea4fa36606bf90219cba9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0c7cc0e4c5f464aaa7d464a4d94ad17a = $(`<div id="html_0c7cc0e4c5f464aaa7d464a4d94ad17a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Store Wijnegem</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Wijnegem</p>         <p style="margin: 3px 0;"><b>Country:</b> Belgium</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_ed0315e7f02ea4fa36606bf90219cba9.setContent(html_0c7cc0e4c5f464aaa7d464a4d94ad17a);
+            
+        
+
+        marker_e8aa19261ea20612a8f22a412906341c.bindPopup(popup_ed0315e7f02ea4fa36606bf90219cba9)
+        ;
+
+        
+    
+    
+            marker_e8aa19261ea20612a8f22a412906341c.bindTooltip(
+                `<div>
+                     LEGO Store Wijnegem
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e8aa19261ea20612a8f22a412906341c.setIcon(icon_8d4a09bd77f3baa682ae53571c9899ea);
+            
+    
+            var marker_a0993eb96362b7ba568ec03346932cc8 = L.marker(
+                [59.3293, 18.0686],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_931e51f06815b874e3b8b3a872aede51 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3245f0b15d60e6d56dbc9be5da4d60e6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dbdec8bbb6c09b70aafa8b1fabd1911d = $(`<div id="html_dbdec8bbb6c09b70aafa8b1fabd1911d" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Store Stockholm</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Stockholm</p>         <p style="margin: 3px 0;"><b>Country:</b> Sweden</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_3245f0b15d60e6d56dbc9be5da4d60e6.setContent(html_dbdec8bbb6c09b70aafa8b1fabd1911d);
+            
+        
+
+        marker_a0993eb96362b7ba568ec03346932cc8.bindPopup(popup_3245f0b15d60e6d56dbc9be5da4d60e6)
+        ;
+
+        
+    
+    
+            marker_a0993eb96362b7ba568ec03346932cc8.bindTooltip(
+                `<div>
+                     LEGO Store Stockholm
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a0993eb96362b7ba568ec03346932cc8.setIcon(icon_931e51f06815b874e3b8b3a872aede51);
+            
+    
+            var marker_e0ef76a606dc43320e793732fb26530b = L.marker(
+                [47.4979, 19.0402],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_de4c61645ea76a14d9a1edc20e2893d6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7669900347afcc4197ed078dc8e5b976 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_66f73103f68acb7bdf53dc74e9791d56 = $(`<div id="html_66f73103f68acb7bdf53dc74e9791d56" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Budapest</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Budapest</p>         <p style="margin: 3px 0;"><b>Country:</b> Hungary</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_7669900347afcc4197ed078dc8e5b976.setContent(html_66f73103f68acb7bdf53dc74e9791d56);
+            
+        
+
+        marker_e0ef76a606dc43320e793732fb26530b.bindPopup(popup_7669900347afcc4197ed078dc8e5b976)
+        ;
+
+        
+    
+    
+            marker_e0ef76a606dc43320e793732fb26530b.bindTooltip(
+                `<div>
+                     LEGO Certified Store Budapest
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e0ef76a606dc43320e793732fb26530b.setIcon(icon_de4c61645ea76a14d9a1edc20e2893d6);
+            
+    
+            var marker_52b8c80c48b82358496ae098d8ec25f1 = L.marker(
+                [43.8563, 18.4131],
+                {
+}
+            ).addTo(marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a);
+        
+    
+            var icon_59a8008d803797409f21316d25316688 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b2ef8c8bb60b443e86b90dfa7a8af304 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ec1d03adca709d4af31ec783894a6193 = $(`<div id="html_ec1d03adca709d4af31ec783894a6193" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #0055BF; margin-bottom: 5px;">🏪 LEGO Certified Store Sarajevo</h4>         <p style="margin: 3px 0;"><b>Type:</b> LEGO Certified Store</p>         <p style="margin: 3px 0;"><b>City:</b> Sarajevo</p>         <p style="margin: 3px 0;"><b>Country:</b> Bosnia and Herzegovina</p>         <p style="margin-top: 8px; font-size: 11px; background: #e8f4f8; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure<br>             <i style="font-size: 10px; color: #666;">Operated by licensed partners</i>         </p>     </div>     </div>`)[0];
+                popup_b2ef8c8bb60b443e86b90dfa7a8af304.setContent(html_ec1d03adca709d4af31ec783894a6193);
+            
+        
+
+        marker_52b8c80c48b82358496ae098d8ec25f1.bindPopup(popup_b2ef8c8bb60b443e86b90dfa7a8af304)
+        ;
+
+        
+    
+    
+            marker_52b8c80c48b82358496ae098d8ec25f1.bindTooltip(
+                `<div>
+                     LEGO Certified Store Sarajevo
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_52b8c80c48b82358496ae098d8ec25f1.setIcon(icon_59a8008d803797409f21316d25316688);
+            
+    
+            marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a.addTo(map_5dc165a63f01f128c58e883046fe30a7);
+        
+    
+            var layer_control_c6cd9f4e359707e9e8179e1ff334e2f3_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_076fa30e3043b68426fa50a459330ddb,
+                },
+                overlays :  {
+                    "Official LEGO Stores (Confirmed Minifigure Factory)" : marker_cluster_4fca783c6f975db92c2d7ac91f46a560,
+                    "LEGO Certified Stores (Build a Minifigure)" : marker_cluster_88342d9fa36f2f8b3f1b210afad92b6a,
+                },
+            };
+            let layer_control_c6cd9f4e359707e9e8179e1ff334e2f3 = L.control.layers(
+                layer_control_c6cd9f4e359707e9e8179e1ff334e2f3_layers.base_layers,
+                layer_control_c6cd9f4e359707e9e8179e1ff334e2f3_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_5dc165a63f01f128c58e883046fe30a7);
+
+        
+</script>
+</html>
