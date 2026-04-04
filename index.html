@@ -4755,11 +4755,14 @@
         }
 
         function updateMarkerAppearance(storeId) {
-            const marker = window.storeRegistry[storeId];
-            if (!marker) return;
+            const entry = window.storeRegistry[storeId];
+            if (!entry) return;
+
+            const marker = entry.marker || entry;
+            if (!marker || !marker.setIcon) return;
 
             const isVisited = VisitedStoresManager.isVisited(storeId);
-            const storeType = marker.storeType || 'certified';
+            const storeType = entry.storeType || 'certified';
             const newIcon = IconManager.getIcon(storeType, isVisited);
             marker.setIcon(newIcon);
         }
