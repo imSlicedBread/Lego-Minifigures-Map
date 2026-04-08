@@ -548,54 +548,6 @@
     marker_0fe7008b01a14428586d8fe19c1040a8.setIcon(icon_36dbb6700cfffee6fc92d81dc5e0a9de);
 
 
-    var marker_df5a847b7045a01d0e7998be4821ca25 = L.marker(
-        [51.4829, -0.6089],
-        {
-        }
-    ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
-
-
-    var icon_b9a644759cebe35f5078a75d53edefde = L.AwesomeMarkers.icon(
-        {
-            "markerColor": "red",
-            "iconColor": "white",
-            "icon": "star",
-            "prefix": "fa",
-            "extraClasses": "fa-rotate-0",
-        }
-    );
-
-
-    var popup_806abad287c1fd638fa77ab50a062882 = L.popup({
-        "maxWidth": 300,
-    });
-
-
-
-    var html_313b3d98a2db9d8b385c6677237d9b00 = $(`<div id="html_313b3d98a2db9d8b385c6677237d9b00" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 280px;">         <h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGOLAND Windsor</h4>         <p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p>         <p style="margin: 3px 0;"><b>City:</b> Windsor</p>         <p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p>         <p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;">             <b>Features:</b> Build a Minifigure, Pick & Build Wall, Demonstration Table         </p>     </div>     </div>`)[0];
-    popup_806abad287c1fd638fa77ab50a062882.setContent(html_313b3d98a2db9d8b385c6677237d9b00);
-
-
-
-    marker_df5a847b7045a01d0e7998be4821ca25.bindPopup(popup_806abad287c1fd638fa77ab50a062882)
-        ;
-
-
-
-
-    marker_df5a847b7045a01d0e7998be4821ca25.bindTooltip(
-        `<div>
-                     LEGOLAND Windsor
-                 </div>`,
-        {
-            "sticky": true,
-        }
-    );
-
-
-    marker_df5a847b7045a01d0e7998be4821ca25.setIcon(icon_b9a644759cebe35f5078a75d53edefde);
-
-
     var marker_3ba21ec6ed93df6f048de7cd24ed8ff8 = L.marker(
         [53.3438, -6.26],
         {
@@ -885,7 +837,7 @@
 
 
     var marker_9543d3389f23edfae9255cfc468aa4c8 = L.marker(
-        [55.7308, 9.1264],
+        [55.731113, 9.11479],
         {
         }
     ).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
@@ -1143,7 +1095,7 @@
     var marker_billund_park = L.marker([55.7352, 9.1235], {}).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
     var icon_billund_park = L.AwesomeMarkers.icon({ "markerColor": "red", "iconColor": "white", "icon": "star", "prefix": "fa", "extraClasses": "fa-rotate-0" });
     var popup_billund_park = L.popup({ "maxWidth": 300 });
-    var html_billund_park = $(`<div style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; width: 280px;"><h4 style="color: #ED1C24; margin-bottom: 5px;">🏢 LEGOLAND Billund</h4><p style="margin: 3px 0;"><b>Type:</b> Official LEGO Store</p><p style="margin: 3px 0;"><b>City:</b> Billund</p><p style="margin: 3px 0;"><b>Country:</b> Denmark</p><p style="margin-top: 8px; font-size: 12px; background: #f0f0f0; padding: 5px; border-radius: 3px;"><b>Features:</b> Build a Minifigure, Pick & Build Wall, Demonstration Table</p></div></div>`)[0];
+    var html_billund_park = $(`<div style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; width: 280px;"><h4 style="color: #ED1C24; margin-bottom: 5px;">🎪 LEGOLAND Billund - LEGO Shop</h4><p style="margin: 3px 0;"><b>Type:</b> LEGOLAND Resort</p><p style="margin: 3px 0;"><b>City:</b> Billund</p><p style="margin: 3px 0;"><b>Country:</b> Denmark</p><p style="margin-top: 8px; font-size: 11px; background: #fff3cd; padding: 5px; border-radius: 3px;"><b>⚠ Minifigure Factory (Booking May Be Required)</b><br><i>Park entry & booking required</i></p></div></div>`)[0];
     popup_billund_park.setContent(html_billund_park);
     marker_billund_park.bindPopup(popup_billund_park);
     marker_billund_park.bindTooltip(`<div>LEGOLAND Billund</div>`, { "sticky": true });
@@ -3712,6 +3664,21 @@
     marker_tr_kanyon.bindPopup(popup_tr_kanyon);
     marker_tr_kanyon.bindTooltip(`<div>LEGO® Store Kanyon</div>`, { "sticky": true });
 
+    // LEGOLAND Parks with Ticketed Minifigure Factories
+    var marker_legoland_windsor = L.marker([51.4635, -0.6511], {}).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+    var popup_legoland_windsor = L.popup({ "maxWidth": 300 });
+    var html_legoland_windsor = $(`<div style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; width: 280px;"><h4 style="color: #ED1C24; margin-bottom: 5px;">🎪 LEGOLAND Windsor - LEGO Store</h4><p style="margin: 3px 0;"><b>Type:</b> LEGOLAND Resort</p><p style="margin: 3px 0;"><b>City:</b> Windsor</p><p style="margin: 3px 0;"><b>Country:</b> United Kingdom</p><p style="margin-top: 8px; font-size: 11px; background: #fff3cd; padding: 5px; border-radius: 3px;"><b>⚠ Minifigure Factory (Booking May Be Required))</b><br><i>Park entry & separate booking required<br>£12.99 per person</i></p></div></div>`)[0];
+    popup_legoland_windsor.setContent(html_legoland_windsor);
+    marker_legoland_windsor.bindPopup(popup_legoland_windsor);
+    marker_legoland_windsor.bindTooltip(`<div>LEGOLAND Windsor - LEGO Store</div>`, { "sticky": true });
+
+    var marker_legoland_germany = L.marker([48.4213, 10.2932], {}).addTo(marker_cluster_4fca783c6f975db92c2d7ac91f46a560);
+    var popup_legoland_germany = L.popup({ "maxWidth": 300 });
+    var html_legoland_germany = $(`<div style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; width: 280px;"><h4 style="color: #ED1C24; margin-bottom: 5px;">🎪 LEGOLAND Deutschland - LEGO Store</h4><p style="margin: 3px 0;"><b>Type:</b> LEGOLAND Resort</p><p style="margin: 3px 0;"><b>City:</b> Günzburg</p><p style="margin: 3px 0;"><b>Country:</b> Germany</p><p style="margin-top: 8px; font-size: 11px; background: #fff3cd; padding: 5px; border-radius: 3px;"><b>⚠ Minifigure Factory (Booking May Be Required))</b><br><i>Park entry & booking required<br>€2.49 per figure</i></p></div></div>`)[0];
+    popup_legoland_germany.setContent(html_legoland_germany);
+    marker_legoland_germany.bindPopup(popup_legoland_germany);
+    marker_legoland_germany.bindTooltip(`<div>LEGOLAND Deutschland - LEGO Store</div>`, { "sticky": true });
+
     var marker_uk_00 = L.marker(
         [54.5973, -5.9301],
         {}
@@ -4646,7 +4613,6 @@
         if (!slug) {
             const specialSlugs = {
                 'Dublin': 'dublin',
-                'LEGOLAND Windsor Resort': 'legoland-resort-windsor',
                 'LEGO Store London - Westfield': 'london-westfield',
                 'LEGO Store London - Leicester Square': 'lsq',
                 'LEGO Store London - Stratford': 'london-stratford',
@@ -4658,8 +4624,19 @@
 
         if (!slug) slug = generateStoreSlug(storeName);  // Fallback to store name
 
-        const storeUrl = `https://www.lego.com/en-gb/stores/store/${slug}`;
-        if (!htmlText.includes('lego.com/stores/store/')) {
+        // Check for LEGOLAND stores with external URLs
+        let storeUrl = '';
+        if (storeName.includes('LEGOLAND Windsor')) {
+            storeUrl = 'https://www.legoland.co.uk/explore/facilities/shopping/the-lego-store/';
+        } else if (storeName.includes('LEGOLAND Deutschland')) {
+            storeUrl = 'https://www.legoland.de/en/explore-legoland/restaurants-shops/shops/lego-shop/';
+        } else if (storeName.includes('LEGOLAND Billund')) {
+            storeUrl = 'https://www.legoland.dk/en/explore/eating-shopping/shopping/lego-shop/';
+        } else {
+            storeUrl = `https://www.lego.com/en-gb/stores/store/${slug}`;
+        }
+
+        if (!htmlText.includes('lego.com/stores/store/') && !htmlText.includes('legoland')) {
             htmlText = htmlText.replace(
                 /(<h4[^>]*>)([\s\S]*?)(<\/h4>)/,
                 `$1<a href="${storeUrl}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;" title="Open on LEGO website ↗">$2</a>$3`
@@ -4954,7 +4931,7 @@
             if (map.hasLayer(nonMFCluster)) map.removeLayer(nonMFCluster);
 
             // Known UK non-MF official stores (fallback list)
-            const nonMFStoreNames = ['Belfast', 'Utilita Arena', 'Battersea', 'Trafford Palazzo', 'Cribbs', 'Edinburgh', 'Glasgow', 'Newcastle', 'Bristol', 'Cardiff', 'Leeds', 'Sheffield', 'Milton Keynes', 'Oxford', 'Arndale', 'Trafford Centre', 'Brighton', 'Southampton', 'LEGOLAND Windsor', 'London - Stratford', 'London - Westfield', 'Bluewater', 'Berlin', 'Hamburg', 'Westend', 'Arkad', 'LEGOLAND Billund', 'River West', 'The Mall Athens', 'Blanchardstown', 'Arese', 'Assago', 'Bari', 'Bolzano', 'Torino Via Roma', 'Firenze', 'Genova', 'Palermo', 'Padova', 'Monza', 'Catania', 'Rimini', 'Euroma', 'Porta Nuova', 'Via Dante Milano', 'CC Adigeo', 'CC Campania', 'CC Il Centro', 'CC Il Centro Carugate', 'CC Le Gru', 'CC Le Vele', 'CC Megalo', 'CC Nave de Vero', 'CC Orio Center', 'The Hague', 'Mall of the Netherlands', 'Rotterdam', 'Utrecht', 'Poznań', 'Warszawa', 'Mokotów', 'Kraków', 'Gdańsk', 'Wrocław', 'Katowice', 'Łódź', 'AFI Cotroceni', 'AFI Ploiesti', 'City Park', 'Coresi', 'Mega Mall', 'Park Lake', 'Promenada', 'Sun Plaza', 'VIVO', 'Ljubljana', 'Akasya', 'Ankamall', 'Hilltown', 'Kanyon'];
+            const nonMFStoreNames = ['Belfast', 'Utilita Arena', 'Battersea', 'Trafford Palazzo', 'Cribbs', 'Edinburgh', 'Glasgow', 'Newcastle', 'Bristol', 'Cardiff', 'Leeds', 'Sheffield', 'Milton Keynes', 'Oxford', 'Arndale', 'Trafford Centre', 'Brighton', 'Southampton', 'London - Stratford', 'London - Westfield', 'Bluewater', 'Berlin', 'Hamburg', 'Westend', 'Arkad', 'River West', 'The Mall Athens', 'Blanchardstown', 'Arese', 'Assago', 'Bari', 'Bolzano', 'Torino Via Roma', 'Firenze', 'Genova', 'Palermo', 'Padova', 'Monza', 'Catania', 'Rimini', 'Euroma', 'Porta Nuova', 'Via Dante Milano', 'CC Adigeo', 'CC Campania', 'CC Il Centro', 'CC Il Centro Carugate', 'CC Le Gru', 'CC Le Vele', 'CC Megalo', 'CC Nave de Vero', 'CC Orio Center', 'The Hague', 'Mall of the Netherlands', 'Rotterdam', 'Utrecht', 'Poznań', 'Warszawa', 'Mokotów', 'Kraków', 'Gdańsk', 'Wrocław', 'Katowice', 'Łódź', 'AFI Cotroceni', 'AFI Ploiesti', 'City Park', 'Coresi', 'Mega Mall', 'Park Lake', 'Promenada', 'Sun Plaza', 'VIVO', 'Ljubljana', 'Akasya', 'Ankamall', 'Hilltown', 'Kanyon'];
 
             // Collect ALL markers from official cluster, then separate MF from non-MF
             const allMarkers = [];
